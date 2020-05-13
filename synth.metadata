@@ -3,22 +3,23 @@
     {
       "git": {
         "name": ".",
-        "remote": "sso://devrel/cloud/libraries/python/python-recaptcha-enterprise"
+        "remote": "https://github.com/googleapis/python-recaptcha-enterprise.git",
+        "sha": "4292038216cb9e2cf20194189f49f22e0c06cb41"
       }
     },
     {
       "git": {
         "name": "googleapis",
         "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "c3f3cdeda70f60d808eaaae8fea44d306b6d5cc2",
-        "internalRef": "306746093"
+        "sha": "89e89786896d256c70f43e68a975470c4f4f220e",
+        "internalRef": "311239362"
       }
     },
     {
       "git": {
         "name": "synthtool",
         "remote": "https://github.com/googleapis/synthtool.git",
-        "sha": "6980131905b652563280e4d2482384d4acc9eafc"
+        "sha": "84c4156c49be9dcabacc8fd7b0585b6fd789ae47"
       }
     }
   ],
