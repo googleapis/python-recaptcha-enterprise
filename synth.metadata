@@ -28,6 +28,13 @@
         "remote": "https://github.com/googleapis/synthtool.git",
         "sha": "1e2abea7253bdfb8c1ee80e07e6c212fb7607333"
       }
+    },
+    {
+      "git": {
+        "name": "synthtool",
+        "remote": "https://github.com/googleapis/synthtool.git",
+        "sha": "71b8a272549c06b5768d00fa48d3ae990e871bec"
+      }
     }
   ],
   "destinations": [
