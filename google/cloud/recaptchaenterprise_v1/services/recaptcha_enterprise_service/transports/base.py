@@ -78,7 +78,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
 
     @property
     def create_assessment(
-        self
+        self,
     ) -> typing.Callable[
         [recaptchaenterprise.CreateAssessmentRequest],
         typing.Union[
@@ -90,7 +90,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
 
     @property
     def annotate_assessment(
-        self
+        self,
     ) -> typing.Callable[
         [recaptchaenterprise.AnnotateAssessmentRequest],
         typing.Union[
@@ -102,7 +102,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
 
     @property
     def create_key(
-        self
+        self,
     ) -> typing.Callable[
         [recaptchaenterprise.CreateKeyRequest],
         typing.Union[
@@ -113,7 +113,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
 
     @property
     def list_keys(
-        self
+        self,
     ) -> typing.Callable[
         [recaptchaenterprise.ListKeysRequest],
         typing.Union[
@@ -125,7 +125,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
 
     @property
     def get_key(
-        self
+        self,
     ) -> typing.Callable[
         [recaptchaenterprise.GetKeyRequest],
         typing.Union[
@@ -136,7 +136,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
 
     @property
     def update_key(
-        self
+        self,
     ) -> typing.Callable[
         [recaptchaenterprise.UpdateKeyRequest],
         typing.Union[
@@ -147,7 +147,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
 
     @property
     def delete_key(
-        self
+        self,
     ) -> typing.Callable[
         [recaptchaenterprise.DeleteKeyRequest],
         typing.Union[empty.Empty, typing.Awaitable[empty.Empty]],

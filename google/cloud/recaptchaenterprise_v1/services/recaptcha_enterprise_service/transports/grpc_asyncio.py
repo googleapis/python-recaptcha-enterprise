@@ -184,7 +184,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
         # have one.
         if not hasattr(self, "_grpc_channel"):
             self._grpc_channel = self.create_channel(
-                self._host, credentials=self._credentials
+                self._host, credentials=self._credentials,
             )
 
         # Return the channel from cache.
@@ -192,7 +192,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
 
     @property
     def create_assessment(
-        self
+        self,
     ) -> Callable[
         [recaptchaenterprise.CreateAssessmentRequest],
         Awaitable[recaptchaenterprise.Assessment],
@@ -222,7 +222,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
 
     @property
     def annotate_assessment(
-        self
+        self,
     ) -> Callable[
         [recaptchaenterprise.AnnotateAssessmentRequest],
         Awaitable[recaptchaenterprise.AnnotateAssessmentResponse],
@@ -253,7 +253,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
 
     @property
     def create_key(
-        self
+        self,
     ) -> Callable[
         [recaptchaenterprise.CreateKeyRequest], Awaitable[recaptchaenterprise.Key]
     ]:
@@ -281,7 +281,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
 
     @property
     def list_keys(
-        self
+        self,
     ) -> Callable[
         [recaptchaenterprise.ListKeysRequest],
         Awaitable[recaptchaenterprise.ListKeysResponse],
@@ -311,7 +311,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
 
     @property
     def get_key(
-        self
+        self,
     ) -> Callable[
         [recaptchaenterprise.GetKeyRequest], Awaitable[recaptchaenterprise.Key]
     ]:
@@ -339,7 +339,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
 
     @property
     def update_key(
-        self
+        self,
     ) -> Callable[
         [recaptchaenterprise.UpdateKeyRequest], Awaitable[recaptchaenterprise.Key]
     ]:
@@ -367,7 +367,7 @@ class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
 
     @property
     def delete_key(
-        self
+        self,
     ) -> Callable[[recaptchaenterprise.DeleteKeyRequest], Awaitable[empty.Empty]]:
         r"""Return a callable for the delete key method over gRPC.
 

@@ -18,4 +18,7 @@
 from .client import RecaptchaEnterpriseServiceClient
 from .async_client import RecaptchaEnterpriseServiceAsyncClient
 
-__all__ = ("RecaptchaEnterpriseServiceClient", "RecaptchaEnterpriseServiceAsyncClient")
+__all__ = (
+    "RecaptchaEnterpriseServiceClient",
+    "RecaptchaEnterpriseServiceAsyncClient",
+)

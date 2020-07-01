@@ -56,7 +56,7 @@ class RecaptchaEnterpriseServiceClientMeta(type):
     _transport_registry["grpc_asyncio"] = RecaptchaEnterpriseServiceGrpcAsyncIOTransport
 
     def get_transport_class(
-        cls, label: str = None
+        cls, label: str = None,
     ) -> Type[RecaptchaEnterpriseServiceTransport]:
         """Return an appropriate transport class.
 
@@ -134,10 +134,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
     from_service_account_json = from_service_account_file
 
     @staticmethod
-    def assessment_path(project: str, assessment: str) -> str:
+    def assessment_path(project: str, assessment: str,) -> str:
         """Return a fully-qualified assessment string."""
         return "projects/{project}/assessments/{assessment}".format(
-            project=project, assessment=assessment
+            project=project, assessment=assessment,
         )
 
     @staticmethod
@@ -149,9 +149,9 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         return m.groupdict() if m else {}
 
     @staticmethod
-    def key_path(project: str, key: str) -> str:
+    def key_path(project: str, key: str,) -> str:
         """Return a fully-qualified key string."""
-        return "projects/{project}/keys/{key}".format(project=project, key=key)
+        return "projects/{project}/keys/{key}".format(project=project, key=key,)
 
     @staticmethod
     def parse_key_path(path: str) -> Dict[str, str]:
@@ -322,7 +322,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -405,7 +405,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -444,7 +444,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
         rpc = gapic_v1.method.wrap_method(
-            self._transport.create_key, default_timeout=None, client_info=_client_info
+            self._transport.create_key, default_timeout=None, client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -454,7 +454,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -496,7 +496,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
         rpc = gapic_v1.method.wrap_method(
-            self._transport.list_keys, default_timeout=None, client_info=_client_info
+            self._transport.list_keys, default_timeout=None, client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -506,11 +506,11 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
         # This method is paged; wrap the response in a pager, which provides
         # an `__iter__` convenience method.
-        response = pagers.ListKeysPager(method=rpc, request=request, response=response)
+        response = pagers.ListKeysPager(method=rpc, request=request, response=response,)
 
         # Done; return the response.
         return response
@@ -549,7 +549,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
         rpc = gapic_v1.method.wrap_method(
-            self._transport.get_key, default_timeout=None, client_info=_client_info
+            self._transport.get_key, default_timeout=None, client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -559,7 +559,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -598,7 +598,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
         rpc = gapic_v1.method.wrap_method(
-            self._transport.update_key, default_timeout=None, client_info=_client_info
+            self._transport.update_key, default_timeout=None, client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -608,7 +608,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -640,7 +640,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
         rpc = gapic_v1.method.wrap_method(
-            self._transport.delete_key, default_timeout=None, client_info=_client_info
+            self._transport.delete_key, default_timeout=None, client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -650,14 +650,16 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        rpc(
+            request, retry=retry, timeout=timeout, metadata=metadata,
+        )
 
 
 try:
     _client_info = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution(
-            "google-cloud-recaptcha-enterprise"
-        ).version
+            "google-cloud-recaptcha-enterprise",
+        ).version,
     )
 except pkg_resources.DistributionNotFound:
     _client_info = gapic_v1.client_info.ClientInfo()

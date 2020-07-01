@@ -59,7 +59,7 @@ class CreateAssessmentRequest(proto.Message):
     """
 
     parent = proto.Field(proto.STRING, number=1)
-    assessment = proto.Field(proto.MESSAGE, number=2, message="Assessment")
+    assessment = proto.Field(proto.MESSAGE, number=2, message="Assessment",)
 
 
 class AnnotateAssessmentRequest(proto.Message):
@@ -84,7 +84,7 @@ class AnnotateAssessmentRequest(proto.Message):
         PASSWORD_INCORRECT = 4
 
     name = proto.Field(proto.STRING, number=1)
-    annotation = proto.Field(proto.ENUM, number=2, enum=Annotation)
+    annotation = proto.Field(proto.ENUM, number=2, enum=Annotation,)
 
 
 class AnnotateAssessmentResponse(proto.Message):
@@ -110,9 +110,9 @@ class Assessment(proto.Message):
     """
 
     name = proto.Field(proto.STRING, number=1)
-    event = proto.Field(proto.MESSAGE, number=2, message="Event")
-    risk_analysis = proto.Field(proto.MESSAGE, number=3, message="RiskAnalysis")
-    token_properties = proto.Field(proto.MESSAGE, number=4, message="TokenProperties")
+    event = proto.Field(proto.MESSAGE, number=2, message="Event",)
+    risk_analysis = proto.Field(proto.MESSAGE, number=3, message="RiskAnalysis",)
+    token_properties = proto.Field(proto.MESSAGE, number=4, message="TokenProperties",)
 
 
 class Event(proto.Message):
@@ -174,7 +174,7 @@ class RiskAnalysis(proto.Message):
         LOW_CONFIDENCE_SCORE = 5
 
     score = proto.Field(proto.FLOAT, number=1)
-    reasons = proto.RepeatedField(proto.ENUM, number=2, enum=ClassificationReason)
+    reasons = proto.RepeatedField(proto.ENUM, number=2, enum=ClassificationReason,)
 
 
 class TokenProperties(proto.Message):
@@ -213,8 +213,8 @@ class TokenProperties(proto.Message):
         MISSING = 5
 
     valid = proto.Field(proto.BOOL, number=1)
-    invalid_reason = proto.Field(proto.ENUM, number=2, enum=InvalidReason)
-    create_time = proto.Field(proto.MESSAGE, number=3, message=timestamp.Timestamp)
+    invalid_reason = proto.Field(proto.ENUM, number=2, enum=InvalidReason,)
+    create_time = proto.Field(proto.MESSAGE, number=3, message=timestamp.Timestamp,)
     hostname = proto.Field(proto.STRING, number=4)
     action = proto.Field(proto.STRING, number=5)
 
@@ -233,7 +233,7 @@ class CreateKeyRequest(proto.Message):
     """
 
     parent = proto.Field(proto.STRING, number=1)
-    key = proto.Field(proto.MESSAGE, number=2, message="Key")
+    key = proto.Field(proto.MESSAGE, number=2, message="Key",)
 
 
 class ListKeysRequest(proto.Message):
@@ -272,7 +272,7 @@ class ListKeysResponse(proto.Message):
     def raw_page(self):
         return self
 
-    keys = proto.RepeatedField(proto.MESSAGE, number=1, message="Key")
+    keys = proto.RepeatedField(proto.MESSAGE, number=1, message="Key",)
     next_page_token = proto.Field(proto.STRING, number=2)
 
 
@@ -300,8 +300,8 @@ class UpdateKeyRequest(proto.Message):
             all fields will be updated.
     """
 
-    key = proto.Field(proto.MESSAGE, number=1, message="Key")
-    update_mask = proto.Field(proto.MESSAGE, number=2, message=field_mask.FieldMask)
+    key = proto.Field(proto.MESSAGE, number=1, message="Key",)
+    update_mask = proto.Field(proto.MESSAGE, number=2, message=field_mask.FieldMask,)
 
 
 class DeleteKeyRequest(proto.Message):
@@ -348,13 +348,13 @@ class Key(proto.Message):
 
     name = proto.Field(proto.STRING, number=1)
     display_name = proto.Field(proto.STRING, number=2)
-    web_settings = proto.Field(proto.MESSAGE, number=3, message="WebKeySettings")
+    web_settings = proto.Field(proto.MESSAGE, number=3, message="WebKeySettings",)
     android_settings = proto.Field(
-        proto.MESSAGE, number=4, message="AndroidKeySettings"
+        proto.MESSAGE, number=4, message="AndroidKeySettings",
     )
-    ios_settings = proto.Field(proto.MESSAGE, number=5, message="IOSKeySettings")
+    ios_settings = proto.Field(proto.MESSAGE, number=5, message="IOSKeySettings",)
     labels = proto.MapField(proto.STRING, proto.STRING, number=6)
-    create_time = proto.Field(proto.MESSAGE, number=7, message=timestamp.Timestamp)
+    create_time = proto.Field(proto.MESSAGE, number=7, message=timestamp.Timestamp,)
 
 
 class WebKeySettings(proto.Message):
@@ -403,9 +403,9 @@ class WebKeySettings(proto.Message):
     allow_all_domains = proto.Field(proto.BOOL, number=3)
     allowed_domains = proto.RepeatedField(proto.STRING, number=1)
     allow_amp_traffic = proto.Field(proto.BOOL, number=2)
-    integration_type = proto.Field(proto.ENUM, number=4, enum=IntegrationType)
+    integration_type = proto.Field(proto.ENUM, number=4, enum=IntegrationType,)
     challenge_security_preference = proto.Field(
-        proto.ENUM, number=5, enum=ChallengeSecurityPreference
+        proto.ENUM, number=5, enum=ChallengeSecurityPreference,
     )
 
 
