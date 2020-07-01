@@ -16,9 +16,9 @@
 #
 
 from collections import OrderedDict
-import os
+import functools
 import re
-from typing import Callable, Dict, Sequence, Tuple, Type, Union
+from typing import Dict, Sequence, Tuple, Type, Union
 import pkg_resources
 
 import google.api_core.client_options as ClientOptions  # type: ignore
@@ -26,8 +26,6 @@ from google.api_core import exceptions  # type: ignore
 from google.api_core import gapic_v1  # type: ignore
 from google.api_core import retry as retries  # type: ignore
 from google.auth import credentials  # type: ignore
-from google.auth.transport import mtls  # type: ignore
-from google.auth.exceptions import MutualTLSChannelError  # type: ignore
 from google.oauth2 import service_account  # type: ignore
 
 from google.cloud.recaptchaenterprise_v1.services.recaptcha_enterprise_service import (
@@ -37,133 +35,37 @@ from google.cloud.recaptchaenterprise_v1.types import recaptchaenterprise
 from google.protobuf import timestamp_pb2 as timestamp  # type: ignore
 
 from .transports.base import RecaptchaEnterpriseServiceTransport
-from .transports.grpc import RecaptchaEnterpriseServiceGrpcTransport
 from .transports.grpc_asyncio import RecaptchaEnterpriseServiceGrpcAsyncIOTransport
+from .client import RecaptchaEnterpriseServiceClient
 
 
-class RecaptchaEnterpriseServiceClientMeta(type):
-    """Metaclass for the RecaptchaEnterpriseService client.
-
-    This provides class-level methods for building and retrieving
-    support objects (e.g. transport) without polluting the client instance
-    objects.
-    """
-
-    _transport_registry = (
-        OrderedDict()
-    )  # type: Dict[str, Type[RecaptchaEnterpriseServiceTransport]]
-    _transport_registry["grpc"] = RecaptchaEnterpriseServiceGrpcTransport
-    _transport_registry["grpc_asyncio"] = RecaptchaEnterpriseServiceGrpcAsyncIOTransport
-
-    def get_transport_class(
-        cls, label: str = None
-    ) -> Type[RecaptchaEnterpriseServiceTransport]:
-        """Return an appropriate transport class.
-
-        Args:
-            label: The name of the desired transport. If none is
-                provided, then the first transport in the registry is used.
-
-        Returns:
-            The transport class to use.
-        """
-        # If a specific transport is requested, return that one.
-        if label:
-            return cls._transport_registry[label]
-
-        # No transport is requested; return the default (that is, the first one
-        # in the dictionary).
-        return next(iter(cls._transport_registry.values()))
-
-
-class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClientMeta):
+class RecaptchaEnterpriseServiceAsyncClient:
     """Service to determine the likelihood an event is legitimate."""
 
-    @staticmethod
-    def _get_default_mtls_endpoint(api_endpoint):
-        """Convert api endpoint to mTLS endpoint.
-        Convert "*.sandbox.googleapis.com" and "*.googleapis.com" to
-        "*.mtls.sandbox.googleapis.com" and "*.mtls.googleapis.com" respectively.
-        Args:
-            api_endpoint (Optional[str]): the api endpoint to convert.
-        Returns:
-            str: converted mTLS api endpoint.
-        """
-        if not api_endpoint:
-            return api_endpoint
+    _client: RecaptchaEnterpriseServiceClient
 
-        mtls_endpoint_re = re.compile(
-            r"(?P<name>[^.]+)(?P<mtls>\.mtls)?(?P<sandbox>\.sandbox)?(?P<googledomain>\.googleapis\.com)?"
-        )
+    DEFAULT_ENDPOINT = RecaptchaEnterpriseServiceClient.DEFAULT_ENDPOINT
+    DEFAULT_MTLS_ENDPOINT = RecaptchaEnterpriseServiceClient.DEFAULT_MTLS_ENDPOINT
 
-        m = mtls_endpoint_re.match(api_endpoint)
-        name, mtls, sandbox, googledomain = m.groups()
-        if mtls or not googledomain:
-            return api_endpoint
+    assessment_path = staticmethod(RecaptchaEnterpriseServiceClient.assessment_path)
 
-        if sandbox:
-            return api_endpoint.replace(
-                "sandbox.googleapis.com", "mtls.sandbox.googleapis.com"
-            )
+    key_path = staticmethod(RecaptchaEnterpriseServiceClient.key_path)
 
-        return api_endpoint.replace(".googleapis.com", ".mtls.googleapis.com")
-
-    DEFAULT_ENDPOINT = "recaptchaenterprise.googleapis.com"
-    DEFAULT_MTLS_ENDPOINT = _get_default_mtls_endpoint.__func__(  # type: ignore
-        DEFAULT_ENDPOINT
+    from_service_account_file = (
+        RecaptchaEnterpriseServiceClient.from_service_account_file
     )
-
-    @classmethod
-    def from_service_account_file(cls, filename: str, *args, **kwargs):
-        """Creates an instance of this client using the provided credentials
-        file.
-
-        Args:
-            filename (str): The path to the service account private key json
-                file.
-            args: Additional arguments to pass to the constructor.
-            kwargs: Additional arguments to pass to the constructor.
-
-        Returns:
-            {@api.name}: The constructed client.
-        """
-        credentials = service_account.Credentials.from_service_account_file(filename)
-        kwargs["credentials"] = credentials
-        return cls(*args, **kwargs)
-
     from_service_account_json = from_service_account_file
 
-    @staticmethod
-    def assessment_path(project: str, assessment: str) -> str:
-        """Return a fully-qualified assessment string."""
-        return "projects/{project}/assessments/{assessment}".format(
-            project=project, assessment=assessment
-        )
-
-    @staticmethod
-    def parse_assessment_path(path: str) -> Dict[str, str]:
-        """Parse a assessment path into its component segments."""
-        m = re.match(
-            r"^projects/(?P<project>.+?)/assessments/(?P<assessment>.+?)$", path
-        )
-        return m.groupdict() if m else {}
-
-    @staticmethod
-    def key_path(project: str, key: str) -> str:
-        """Return a fully-qualified key string."""
-        return "projects/{project}/keys/{key}".format(project=project, key=key)
-
-    @staticmethod
-    def parse_key_path(path: str) -> Dict[str, str]:
-        """Parse a key path into its component segments."""
-        m = re.match(r"^projects/(?P<project>.+?)/keys/(?P<key>.+?)$", path)
-        return m.groupdict() if m else {}
+    get_transport_class = functools.partial(
+        type(RecaptchaEnterpriseServiceClient).get_transport_class,
+        type(RecaptchaEnterpriseServiceClient),
+    )
 
     def __init__(
         self,
         *,
         credentials: credentials.Credentials = None,
-        transport: Union[str, RecaptchaEnterpriseServiceTransport] = None,
+        transport: Union[str, RecaptchaEnterpriseServiceTransport] = "grpc_asyncio",
         client_options: ClientOptions = None,
     ) -> None:
         """Instantiate the recaptcha enterprise service client.
@@ -192,63 +94,15 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
                 default SSL credentials will be used if present.
 
         Raises:
-            google.auth.exceptions.MutualTLSChannelError: If mutual TLS transport
+            google.auth.exceptions.MutualTlsChannelError: If mutual TLS transport
                 creation failed for any reason.
         """
-        if isinstance(client_options, dict):
-            client_options = ClientOptions.from_dict(client_options)
-        if client_options is None:
-            client_options = ClientOptions.ClientOptions()
 
-        if client_options.api_endpoint is None:
-            use_mtls_env = os.getenv("GOOGLE_API_USE_MTLS", "never")
-            if use_mtls_env == "never":
-                client_options.api_endpoint = self.DEFAULT_ENDPOINT
-            elif use_mtls_env == "always":
-                client_options.api_endpoint = self.DEFAULT_MTLS_ENDPOINT
-            elif use_mtls_env == "auto":
-                has_client_cert_source = (
-                    client_options.client_cert_source is not None
-                    or mtls.has_default_client_cert_source()
-                )
-                client_options.api_endpoint = (
-                    self.DEFAULT_MTLS_ENDPOINT
-                    if has_client_cert_source
-                    else self.DEFAULT_ENDPOINT
-                )
-            else:
-                raise MutualTLSChannelError(
-                    "Unsupported GOOGLE_API_USE_MTLS value. Accepted values: never, auto, always"
-                )
+        self._client = RecaptchaEnterpriseServiceClient(
+            credentials=credentials, transport=transport, client_options=client_options
+        )
 
-        # Save or instantiate the transport.
-        # Ordinarily, we provide the transport, but allowing a custom transport
-        # instance provides an extensibility point for unusual situations.
-        if isinstance(transport, RecaptchaEnterpriseServiceTransport):
-            # transport is a RecaptchaEnterpriseServiceTransport instance.
-            if credentials or client_options.credentials_file:
-                raise ValueError(
-                    "When providing a transport instance, "
-                    "provide its credentials directly."
-                )
-            if client_options.scopes:
-                raise ValueError(
-                    "When providing a transport instance, "
-                    "provide its scopes directly."
-                )
-            self._transport = transport
-        else:
-            Transport = type(self).get_transport_class(transport)
-            self._transport = Transport(
-                credentials=credentials,
-                credentials_file=client_options.credentials_file,
-                host=client_options.api_endpoint,
-                scopes=client_options.scopes,
-                api_mtls_endpoint=client_options.api_endpoint,
-                client_cert_source=client_options.client_cert_source,
-            )
-
-    def create_assessment(
+    async def create_assessment(
         self,
         request: recaptchaenterprise.CreateAssessmentRequest = None,
         *,
@@ -309,8 +163,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
-        rpc = gapic_v1.method.wrap_method(
-            self._transport.create_assessment,
+        rpc = gapic_v1.method_async.wrap_method(
+            self._client._transport.create_assessment,
             default_timeout=None,
             client_info=_client_info,
         )
@@ -322,12 +176,12 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = await rpc(request, retry=retry, timeout=timeout, metadata=metadata)
 
         # Done; return the response.
         return response
 
-    def annotate_assessment(
+    async def annotate_assessment(
         self,
         request: recaptchaenterprise.AnnotateAssessmentRequest = None,
         *,
@@ -392,8 +246,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
-        rpc = gapic_v1.method.wrap_method(
-            self._transport.annotate_assessment,
+        rpc = gapic_v1.method_async.wrap_method(
+            self._client._transport.annotate_assessment,
             default_timeout=None,
             client_info=_client_info,
         )
@@ -405,12 +259,12 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = await rpc(request, retry=retry, timeout=timeout, metadata=metadata)
 
         # Done; return the response.
         return response
 
-    def create_key(
+    async def create_key(
         self,
         request: recaptchaenterprise.CreateKeyRequest = None,
         *,
@@ -443,8 +297,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
-        rpc = gapic_v1.method.wrap_method(
-            self._transport.create_key, default_timeout=None, client_info=_client_info
+        rpc = gapic_v1.method_async.wrap_method(
+            self._client._transport.create_key,
+            default_timeout=None,
+            client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -454,19 +310,19 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = await rpc(request, retry=retry, timeout=timeout, metadata=metadata)
 
         # Done; return the response.
         return response
 
-    def list_keys(
+    async def list_keys(
         self,
         request: recaptchaenterprise.ListKeysRequest = None,
         *,
         retry: retries.Retry = gapic_v1.method.DEFAULT,
         timeout: float = None,
         metadata: Sequence[Tuple[str, str]] = (),
-    ) -> pagers.ListKeysPager:
+    ) -> pagers.ListKeysAsyncPager:
         r"""Returns the list of all keys that belong to a
         project.
 
@@ -481,7 +337,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
                 sent along with the request as metadata.
 
         Returns:
-            ~.pagers.ListKeysPager:
+            ~.pagers.ListKeysAsyncPager:
                 Response to request to list keys in a
                 project.
                 Iterating over this object will yield
@@ -495,8 +351,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
-        rpc = gapic_v1.method.wrap_method(
-            self._transport.list_keys, default_timeout=None, client_info=_client_info
+        rpc = gapic_v1.method_async.wrap_method(
+            self._client._transport.list_keys,
+            default_timeout=None,
+            client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -506,16 +364,18 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = await rpc(request, retry=retry, timeout=timeout, metadata=metadata)
 
         # This method is paged; wrap the response in a pager, which provides
-        # an `__iter__` convenience method.
-        response = pagers.ListKeysPager(method=rpc, request=request, response=response)
+        # an `__aiter__` convenience method.
+        response = pagers.ListKeysAsyncPager(
+            method=rpc, request=request, response=response
+        )
 
         # Done; return the response.
         return response
 
-    def get_key(
+    async def get_key(
         self,
         request: recaptchaenterprise.GetKeyRequest = None,
         *,
@@ -548,8 +408,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
-        rpc = gapic_v1.method.wrap_method(
-            self._transport.get_key, default_timeout=None, client_info=_client_info
+        rpc = gapic_v1.method_async.wrap_method(
+            self._client._transport.get_key,
+            default_timeout=None,
+            client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -559,12 +421,12 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = await rpc(request, retry=retry, timeout=timeout, metadata=metadata)
 
         # Done; return the response.
         return response
 
-    def update_key(
+    async def update_key(
         self,
         request: recaptchaenterprise.UpdateKeyRequest = None,
         *,
@@ -597,8 +459,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
-        rpc = gapic_v1.method.wrap_method(
-            self._transport.update_key, default_timeout=None, client_info=_client_info
+        rpc = gapic_v1.method_async.wrap_method(
+            self._client._transport.update_key,
+            default_timeout=None,
+            client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -608,12 +472,12 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        response = await rpc(request, retry=retry, timeout=timeout, metadata=metadata)
 
         # Done; return the response.
         return response
 
-    def delete_key(
+    async def delete_key(
         self,
         request: recaptchaenterprise.DeleteKeyRequest = None,
         *,
@@ -639,8 +503,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         # Wrap the RPC method; this adds retry and timeout information,
         # and friendly error handling.
-        rpc = gapic_v1.method.wrap_method(
-            self._transport.delete_key, default_timeout=None, client_info=_client_info
+        rpc = gapic_v1.method_async.wrap_method(
+            self._client._transport.delete_key,
+            default_timeout=None,
+            client_info=_client_info,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -650,7 +516,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         )
 
         # Send the request.
-        rpc(request, retry=retry, timeout=timeout, metadata=metadata)
+        await rpc(request, retry=retry, timeout=timeout, metadata=metadata)
 
 
 try:
@@ -663,4 +529,4 @@ except pkg_resources.DistributionNotFound:
     _client_info = gapic_v1.client_info.ClientInfo()
 
 
-__all__ = ("RecaptchaEnterpriseServiceClient",)
+__all__ = ("RecaptchaEnterpriseServiceAsyncClient",)
