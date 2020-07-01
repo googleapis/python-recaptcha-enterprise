@@ -47,9 +47,9 @@ class RecaptchaEnterpriseServiceAsyncClient:
     DEFAULT_ENDPOINT = RecaptchaEnterpriseServiceClient.DEFAULT_ENDPOINT
     DEFAULT_MTLS_ENDPOINT = RecaptchaEnterpriseServiceClient.DEFAULT_MTLS_ENDPOINT
 
-    key_path = staticmethod(RecaptchaEnterpriseServiceClient.key_path)
-
     assessment_path = staticmethod(RecaptchaEnterpriseServiceClient.assessment_path)
+
+    key_path = staticmethod(RecaptchaEnterpriseServiceClient.key_path)
 
     from_service_account_file = (
         RecaptchaEnterpriseServiceClient.from_service_account_file
