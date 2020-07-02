@@ -15,24 +15,26 @@
 # limitations under the License.
 #
 
-from typing import Callable, Dict, Optional, Sequence, Tuple
+from typing import Awaitable, Callable, Dict, Optional, Sequence, Tuple
 
-from google.api_core import grpc_helpers  # type: ignore
-from google import auth  # type: ignore
+from google.api_core import grpc_helpers_async  # type: ignore
 from google.auth import credentials  # type: ignore
 from google.auth.transport.grpc import SslCredentials  # type: ignore
 
-
 import grpc  # type: ignore
+from grpc.experimental import aio  # type: ignore
 
 from google.cloud.recaptchaenterprise_v1.types import recaptchaenterprise
 from google.protobuf import empty_pb2 as empty  # type: ignore
 
 from .base import RecaptchaEnterpriseServiceTransport
+from .grpc import RecaptchaEnterpriseServiceGrpcTransport
 
 
-class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTransport):
-    """gRPC backend transport for RecaptchaEnterpriseService.
+class RecaptchaEnterpriseServiceGrpcAsyncIOTransport(
+    RecaptchaEnterpriseServiceTransport
+):
+    """gRPC AsyncIO backend transport for RecaptchaEnterpriseService.
 
     Service to determine the likelihood an event is legitimate.
 
@@ -44,16 +46,54 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     top of HTTP/2); the ``grpcio`` package must be installed.
     """
 
-    _stubs: Dict[str, Callable]
+    _grpc_channel: aio.Channel
+    _stubs: Dict[str, Callable] = {}
+
+    @classmethod
+    def create_channel(
+        cls,
+        host: str = "recaptchaenterprise.googleapis.com",
+        credentials: credentials.Credentials = None,
+        credentials_file: Optional[str] = None,
+        scopes: Optional[Sequence[str]] = None,
+        **kwargs
+    ) -> aio.Channel:
+        """Create and return a gRPC AsyncIO channel object.
+        Args:
+            address (Optional[str]): The host for the channel to use.
+            credentials (Optional[~.Credentials]): The
+                authorization credentials to attach to requests. These
+                credentials identify this application to the service. If
+                none are specified, the client will attempt to ascertain
+                the credentials from the environment.
+            credentials_file (Optional[str]): A file with credentials that can
+                be loaded with :func:`google.auth.load_credentials_from_file`.
+                This argument is ignored if ``channel`` is provided.
+            scopes (Optional[Sequence[str]]): A optional list of scopes needed for this
+                service. These are only used when credentials are not specified and
+                are passed to :func:`google.auth.default`.
+            kwargs (Optional[dict]): Keyword arguments, which are passed to the
+                channel creation.
+        Returns:
+            aio.Channel: A gRPC AsyncIO channel object.
+        """
+        scopes = scopes or cls.AUTH_SCOPES
+        return grpc_helpers_async.create_channel(
+            host,
+            credentials=credentials,
+            credentials_file=credentials_file,
+            scopes=scopes,
+            **kwargs
+        )
 
     def __init__(
         self,
         *,
         host: str = "recaptchaenterprise.googleapis.com",
         credentials: credentials.Credentials = None,
-        credentials_file: str = None,
-        scopes: Sequence[str] = None,
-        channel: grpc.Channel = None,
+        credentials_file: Optional[str] = None,
+        scopes: Optional[Sequence[str]] = None,
+        channel: aio.Channel = None,
         api_mtls_endpoint: str = None,
         client_cert_source: Callable[[], Tuple[bytes, bytes]] = None
     ) -> None:
@@ -70,9 +110,10 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
             credentials_file (Optional[str]): A file with credentials that can
                 be loaded with :func:`google.auth.load_credentials_from_file`.
                 This argument is ignored if ``channel`` is provided.
-            scopes (Optional(Sequence[str])): A list of scopes. This argument is
-                ignored if ``channel`` is provided.
-            channel (Optional[grpc.Channel]): A ``Channel`` instance through
+            scopes (Optional[Sequence[str]]): A optional list of scopes needed for this
+                service. These are only used when credentials are not specified and
+                are passed to :func:`google.auth.default`.
+            channel (Optional[aio.Channel]): A ``Channel`` instance through
                 which to make calls.
             api_mtls_endpoint (Optional[str]): The mutual TLS endpoint. If
                 provided, it overrides the ``host`` argument and tries to create
@@ -84,7 +125,7 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
                 is None.
 
         Raises:
-          google.auth.exceptions.MutualTLSChannelError: If mutual TLS transport
+            google.auth.exceptions.MutualTlsChannelError: If mutual TLS transport
               creation failed for any reason.
           google.api_core.exceptions.DuplicateCredentialArgs: If both ``credentials``
               and ``credentials_file`` are passed.
@@ -102,9 +143,6 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
                 if ":" in api_mtls_endpoint
                 else api_mtls_endpoint + ":443"
             )
-
-            if credentials is None:
-                credentials, _ = auth.default(scopes=self.AUTH_SCOPES)
 
             # Create SSL credentials with client_cert_source or application
             # default SSL credentials.
@@ -133,51 +171,10 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
             scopes=scopes or self.AUTH_SCOPES,
         )
 
-        self._stubs = {}  # type: Dict[str, Callable]
-
-    @classmethod
-    def create_channel(
-        cls,
-        host: str = "recaptchaenterprise.googleapis.com",
-        credentials: credentials.Credentials = None,
-        credentials_file: str = None,
-        scopes: Optional[Sequence[str]] = None,
-        **kwargs
-    ) -> grpc.Channel:
-        """Create and return a gRPC channel object.
-        Args:
-            address (Optionsl[str]): The host for the channel to use.
-            credentials (Optional[~.Credentials]): The
-                authorization credentials to attach to requests. These
-                credentials identify this application to the service. If
-                none are specified, the client will attempt to ascertain
-                the credentials from the environment.
-            credentials_file (Optional[str]): A file with credentials that can
-                be loaded with :func:`google.auth.load_credentials_from_file`.
-                This argument is mutually exclusive with credentials.
-            scopes (Optional[Sequence[str]]): A optional list of scopes needed for this
-                service. These are only used when credentials are not specified and
-                are passed to :func:`google.auth.default`.
-            kwargs (Optional[dict]): Keyword arguments, which are passed to the
-                channel creation.
-        Returns:
-            grpc.Channel: A gRPC channel object.
-
-        Raises:
-            google.api_core.exceptions.DuplicateCredentialArgs: If both ``credentials``
-              and ``credentials_file`` are passed.
-        """
-        scopes = scopes or cls.AUTH_SCOPES
-        return grpc_helpers.create_channel(
-            host,
-            credentials=credentials,
-            credentials_file=credentials_file,
-            scopes=scopes,
-            **kwargs
-        )
+        self._stubs = {}
 
     @property
-    def grpc_channel(self) -> grpc.Channel:
+    def grpc_channel(self) -> aio.Channel:
         """Create the channel designed to connect to this service.
 
         This property caches on the instance; repeated calls return
@@ -197,7 +194,8 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     def create_assessment(
         self
     ) -> Callable[
-        [recaptchaenterprise.CreateAssessmentRequest], recaptchaenterprise.Assessment
+        [recaptchaenterprise.CreateAssessmentRequest],
+        Awaitable[recaptchaenterprise.Assessment],
     ]:
         r"""Return a callable for the create assessment method over gRPC.
 
@@ -206,7 +204,7 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
 
         Returns:
             Callable[[~.CreateAssessmentRequest],
-                    ~.Assessment]:
+                    Awaitable[~.Assessment]]:
                 A function that, when called, will call the underlying RPC
                 on the server.
         """
@@ -227,7 +225,7 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
         self
     ) -> Callable[
         [recaptchaenterprise.AnnotateAssessmentRequest],
-        recaptchaenterprise.AnnotateAssessmentResponse,
+        Awaitable[recaptchaenterprise.AnnotateAssessmentResponse],
     ]:
         r"""Return a callable for the annotate assessment method over gRPC.
 
@@ -237,7 +235,7 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
 
         Returns:
             Callable[[~.AnnotateAssessmentRequest],
-                    ~.AnnotateAssessmentResponse]:
+                    Awaitable[~.AnnotateAssessmentResponse]]:
                 A function that, when called, will call the underlying RPC
                 on the server.
         """
@@ -256,14 +254,16 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     @property
     def create_key(
         self
-    ) -> Callable[[recaptchaenterprise.CreateKeyRequest], recaptchaenterprise.Key]:
+    ) -> Callable[
+        [recaptchaenterprise.CreateKeyRequest], Awaitable[recaptchaenterprise.Key]
+    ]:
         r"""Return a callable for the create key method over gRPC.
 
         Creates a new reCAPTCHA Enterprise key.
 
         Returns:
             Callable[[~.CreateKeyRequest],
-                    ~.Key]:
+                    Awaitable[~.Key]]:
                 A function that, when called, will call the underlying RPC
                 on the server.
         """
@@ -283,7 +283,8 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     def list_keys(
         self
     ) -> Callable[
-        [recaptchaenterprise.ListKeysRequest], recaptchaenterprise.ListKeysResponse
+        [recaptchaenterprise.ListKeysRequest],
+        Awaitable[recaptchaenterprise.ListKeysResponse],
     ]:
         r"""Return a callable for the list keys method over gRPC.
 
@@ -292,7 +293,7 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
 
         Returns:
             Callable[[~.ListKeysRequest],
-                    ~.ListKeysResponse]:
+                    Awaitable[~.ListKeysResponse]]:
                 A function that, when called, will call the underlying RPC
                 on the server.
         """
@@ -311,14 +312,16 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     @property
     def get_key(
         self
-    ) -> Callable[[recaptchaenterprise.GetKeyRequest], recaptchaenterprise.Key]:
+    ) -> Callable[
+        [recaptchaenterprise.GetKeyRequest], Awaitable[recaptchaenterprise.Key]
+    ]:
         r"""Return a callable for the get key method over gRPC.
 
         Returns the specified key.
 
         Returns:
             Callable[[~.GetKeyRequest],
-                    ~.Key]:
+                    Awaitable[~.Key]]:
                 A function that, when called, will call the underlying RPC
                 on the server.
         """
@@ -337,14 +340,16 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     @property
     def update_key(
         self
-    ) -> Callable[[recaptchaenterprise.UpdateKeyRequest], recaptchaenterprise.Key]:
+    ) -> Callable[
+        [recaptchaenterprise.UpdateKeyRequest], Awaitable[recaptchaenterprise.Key]
+    ]:
         r"""Return a callable for the update key method over gRPC.
 
         Updates the specified key.
 
         Returns:
             Callable[[~.UpdateKeyRequest],
-                    ~.Key]:
+                    Awaitable[~.Key]]:
                 A function that, when called, will call the underlying RPC
                 on the server.
         """
@@ -363,14 +368,14 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     @property
     def delete_key(
         self
-    ) -> Callable[[recaptchaenterprise.DeleteKeyRequest], empty.Empty]:
+    ) -> Callable[[recaptchaenterprise.DeleteKeyRequest], Awaitable[empty.Empty]]:
         r"""Return a callable for the delete key method over gRPC.
 
         Deletes the specified key.
 
         Returns:
             Callable[[~.DeleteKeyRequest],
-                    ~.Empty]:
+                    Awaitable[~.Empty]]:
                 A function that, when called, will call the underlying RPC
                 on the server.
         """
@@ -387,4 +392,4 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
         return self._stubs["delete_key"]
 
 
-__all__ = ("RecaptchaEnterpriseServiceGrpcTransport",)
+__all__ = ("RecaptchaEnterpriseServiceGrpcAsyncIOTransport",)
