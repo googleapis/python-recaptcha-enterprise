@@ -126,7 +126,7 @@ def system(session):
     session.install(
         "mock", "pytest", "google-cloud-testutils",
     )
-    
+
     session.install("-e", ".")
 
     # Run py.test against the system tests.
