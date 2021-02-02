@@ -4,7 +4,7 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/python-recaptcha-enterprise.git",
-        "sha": "b704db49713a6bc7ebc10d90d09014f9e0ca3761"
+        "sha": "7f9db7203246c0911ad1760ffc8e56cc61acd224"
       }
     },
     {
@@ -116,7 +116,6 @@
     "google/cloud/recaptchaenterprise_v1/types/recaptchaenterprise.py",
     "mypy.ini",
     "noxfile.py",
-    "recaptchaenterprise-v1-py.tar.gz",
     "renovate.json",
     "scripts/decrypt-secrets.sh",
     "scripts/fixup_recaptchaenterprise_v1_keywords.py",
