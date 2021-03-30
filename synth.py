@@ -29,12 +29,12 @@ versions = ["v1"]
 
 for version in versions:
     library = gapic.py_library(
-        service="recaptchaenterprise", 
+        service="recaptchaenterprise",
         version="v1",
         bazel_target=f"//google/cloud/recaptchaenterprise/{version}:recaptchaenterprise-{version}-py",
     )
 
-    s.move(library, excludes=["setup.py", "README.rst", "docs/index.rst"])
+    s.move(library, excludes=["setup.py", "README.rst", "docs/index.rst", "*.tar.gz"])
 
 
 # rename to google-cloud-recaptcha-enterprise
