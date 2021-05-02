@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 import warnings
-from typing import Callable, Dict, Optional, Sequence, Tuple
+from typing import Callable, Dict, Optional, Sequence, Tuple, Union
 
 from google.api_core import grpc_helpers  # type: ignore
 from google.api_core import gapic_v1  # type: ignore
@@ -28,7 +26,6 @@ import grpc  # type: ignore
 
 from google.cloud.recaptchaenterprise_v1.types import recaptchaenterprise
 from google.protobuf import empty_pb2 as empty  # type: ignore
-
 from .base import RecaptchaEnterpriseServiceTransport, DEFAULT_CLIENT_INFO
 
 
@@ -65,7 +62,8 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
         """Instantiate the transport.
 
         Args:
-            host (Optional[str]): The hostname to connect to.
+            host (Optional[str]):
+                 The hostname to connect to.
             credentials (Optional[google.auth.credentials.Credentials]): The
                 authorization credentials to attach to requests. These
                 credentials identify the application to the service; if none
@@ -206,13 +204,15 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
             google.api_core.exceptions.DuplicateCredentialArgs: If both ``credentials``
               and ``credentials_file`` are passed.
         """
-        scopes = scopes or cls.AUTH_SCOPES
+
+        self_signed_jwt_kwargs = cls._get_self_signed_jwt_kwargs(host, scopes)
+
         return grpc_helpers.create_channel(
             host,
             credentials=credentials,
             credentials_file=credentials_file,
-            scopes=scopes,
             quota_project_id=quota_project_id,
+            **self_signed_jwt_kwargs,
             **kwargs,
         )
 
@@ -228,7 +228,9 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     ) -> Callable[
         [recaptchaenterprise.CreateAssessmentRequest], recaptchaenterprise.Assessment
     ]:
-        r"""Return a callable for the create assessment method over gRPC.
+        r"""Return a callable for the
+        create assessment
+          method over gRPC.
 
         Creates an Assessment of the likelihood an event is
         legitimate.
@@ -258,7 +260,9 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
         [recaptchaenterprise.AnnotateAssessmentRequest],
         recaptchaenterprise.AnnotateAssessmentResponse,
     ]:
-        r"""Return a callable for the annotate assessment method over gRPC.
+        r"""Return a callable for the
+        annotate assessment
+          method over gRPC.
 
         Annotates a previously created Assessment to provide
         additional information on whether the event turned out
@@ -286,7 +290,9 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     def create_key(
         self,
     ) -> Callable[[recaptchaenterprise.CreateKeyRequest], recaptchaenterprise.Key]:
-        r"""Return a callable for the create key method over gRPC.
+        r"""Return a callable for the
+        create key
+          method over gRPC.
 
         Creates a new reCAPTCHA Enterprise key.
 
@@ -314,7 +320,9 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     ) -> Callable[
         [recaptchaenterprise.ListKeysRequest], recaptchaenterprise.ListKeysResponse
     ]:
-        r"""Return a callable for the list keys method over gRPC.
+        r"""Return a callable for the
+        list keys
+          method over gRPC.
 
         Returns the list of all keys that belong to a
         project.
@@ -341,7 +349,9 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     def get_key(
         self,
     ) -> Callable[[recaptchaenterprise.GetKeyRequest], recaptchaenterprise.Key]:
-        r"""Return a callable for the get key method over gRPC.
+        r"""Return a callable for the
+        get key
+          method over gRPC.
 
         Returns the specified key.
 
@@ -367,7 +377,9 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     def update_key(
         self,
     ) -> Callable[[recaptchaenterprise.UpdateKeyRequest], recaptchaenterprise.Key]:
-        r"""Return a callable for the update key method over gRPC.
+        r"""Return a callable for the
+        update key
+          method over gRPC.
 
         Updates the specified key.
 
@@ -393,7 +405,9 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
     def delete_key(
         self,
     ) -> Callable[[recaptchaenterprise.DeleteKeyRequest], empty.Empty]:
-        r"""Return a callable for the delete key method over gRPC.
+        r"""Return a callable for the
+        delete key
+          method over gRPC.
 
         Deletes the specified key.
 

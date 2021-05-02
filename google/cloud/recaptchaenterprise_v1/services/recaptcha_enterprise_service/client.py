@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 from collections import OrderedDict
 from distutils import util
 import os
@@ -37,7 +35,6 @@ from google.cloud.recaptchaenterprise_v1.services.recaptcha_enterprise_service i
 )
 from google.cloud.recaptchaenterprise_v1.types import recaptchaenterprise
 from google.protobuf import timestamp_pb2 as timestamp  # type: ignore
-
 from .transports.base import RecaptchaEnterpriseServiceTransport, DEFAULT_CLIENT_INFO
 from .transports.grpc import RecaptchaEnterpriseServiceGrpcTransport
 from .transports.grpc_asyncio import RecaptchaEnterpriseServiceGrpcAsyncIOTransport
@@ -373,7 +370,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         Args:
             request (google.cloud.recaptchaenterprise_v1.types.CreateAssessmentRequest):
-                The request object. The create assessment request
+                The request object.
+                The create assessment request
                 message.
             parent (str):
                 Required. The name of the project in
@@ -388,7 +386,6 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
                 This corresponds to the ``assessment`` field
                 on the ``request`` instance; if ``request`` is provided, this
                 should not be set.
-
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
             timeout (float): The timeout for this request.
@@ -415,10 +412,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         # there are no flattened fields.
         if not isinstance(request, recaptchaenterprise.CreateAssessmentRequest):
             request = recaptchaenterprise.CreateAssessmentRequest(request)
-
             # If we have keyword arguments corresponding to fields on the
             # request, apply these.
-
             if parent is not None:
                 request.parent = parent
             if assessment is not None:
@@ -456,7 +451,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         Args:
             request (google.cloud.recaptchaenterprise_v1.types.AnnotateAssessmentRequest):
-                The request object. The request message to annotate an
+                The request object.
+                The request message to annotate an
                 Assessment.
             name (str):
                 Required. The resource name of the
@@ -473,7 +469,6 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
                 This corresponds to the ``annotation`` field
                 on the ``request`` instance; if ``request`` is provided, this
                 should not be set.
-
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
             timeout (float): The timeout for this request.
@@ -502,10 +497,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         # there are no flattened fields.
         if not isinstance(request, recaptchaenterprise.AnnotateAssessmentRequest):
             request = recaptchaenterprise.AnnotateAssessmentRequest(request)
-
             # If we have keyword arguments corresponding to fields on the
             # request, apply these.
-
             if name is not None:
                 request.name = name
             if annotation is not None:
@@ -539,8 +532,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         Args:
             request (google.cloud.recaptchaenterprise_v1.types.CreateKeyRequest):
-                The request object. The create key request message.
-
+                The request object.
+                The create key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
             timeout (float): The timeout for this request.
@@ -555,7 +548,6 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         """
         # Create or coerce a protobuf request object.
-
         # Minor optimization to avoid making a copy if the user passes
         # in a recaptchaenterprise.CreateKeyRequest.
         # There's no risk of modifying the input as we've already verified
@@ -592,8 +584,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         Args:
             request (google.cloud.recaptchaenterprise_v1.types.ListKeysRequest):
-                The request object. The list keys request message.
-
+                The request object.
+                The list keys request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
             timeout (float): The timeout for this request.
@@ -610,7 +602,6 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         """
         # Create or coerce a protobuf request object.
-
         # Minor optimization to avoid making a copy if the user passes
         # in a recaptchaenterprise.ListKeysRequest.
         # There's no risk of modifying the input as we've already verified
@@ -652,8 +643,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         Args:
             request (google.cloud.recaptchaenterprise_v1.types.GetKeyRequest):
-                The request object. The get key request message.
-
+                The request object.
+                The get key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
             timeout (float): The timeout for this request.
@@ -668,7 +659,6 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         """
         # Create or coerce a protobuf request object.
-
         # Minor optimization to avoid making a copy if the user passes
         # in a recaptchaenterprise.GetKeyRequest.
         # There's no risk of modifying the input as we've already verified
@@ -704,8 +694,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         Args:
             request (google.cloud.recaptchaenterprise_v1.types.UpdateKeyRequest):
-                The request object. The update key request message.
-
+                The request object.
+                The update key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
             timeout (float): The timeout for this request.
@@ -720,7 +710,6 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         """
         # Create or coerce a protobuf request object.
-
         # Minor optimization to avoid making a copy if the user passes
         # in a recaptchaenterprise.UpdateKeyRequest.
         # There's no risk of modifying the input as we've already verified
@@ -756,8 +745,8 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         Args:
             request (google.cloud.recaptchaenterprise_v1.types.DeleteKeyRequest):
-                The request object. The delete key request message.
-
+                The request object.
+                The delete key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
             timeout (float): The timeout for this request.
@@ -765,7 +754,6 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
                 sent along with the request as metadata.
         """
         # Create or coerce a protobuf request object.
-
         # Minor optimization to avoid making a copy if the user passes
         # in a recaptchaenterprise.DeleteKeyRequest.
         # There's no risk of modifying the input as we've already verified
