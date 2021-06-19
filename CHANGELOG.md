@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.4](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v0.3.3...v0.3.4) (2021-06-19)
+
+
+### Documentation
+
+* omit mention of Python 2.7 in 'CONTRIBUTING.rst' ([#1127](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/1127)) ([#82](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/82)) ([fd4b1b4](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/fd4b1b4af92ff9027675b7bd1b494870225eccaa)), closes [#1126](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/1126)
+
 ### [0.3.3](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v0.3.2...v0.3.3) (2021-06-16)
 
 
