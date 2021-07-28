@@ -3,14 +3,14 @@
 ### [0.4.2](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v0.4.1...v0.4.2) (2021-07-28)
 
 
-### Features
-
-* add Samples section to CONTRIBUTING.rst ([#97](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/97)) ([ffcc165](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/ffcc1651929337be437250e440b75548c453ced9))
-
-
 ### Bug Fixes
 
 * enable self signed jwt for grpc ([#101](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/101)) ([2a9cba8](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/2a9cba89af89d76a1e9a4922e2901bd4847de949))
+
+
+### Documentation
+
+* add Samples section to CONTRIBUTING.rst ([#97](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/97)) ([ffcc165](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/ffcc1651929337be437250e440b75548c453ced9))
 
 
 ### Miscellaneous Chores
