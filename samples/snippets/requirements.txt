@@ -1,0 +1,2 @@
+flask==2.0.1
+google-cloud-recaptcha-enterprise==1.0.0
