@@ -1,15 +1,17 @@
 import re
 import typing
 
+import google
+
 import site_key
 
-# Setting up variables for testing
-GCLOUD_PROJECT = "your-gcloud-project-id"
+# TODO(developer): Replace these variables before running the sample.
+PROJECT = google.auth.default()[1]
 DOMAIN_NAME = "localhost"
 
 
 def test_recaptcha_site_key(capsys: typing.Any) -> None:
-    recaptcha_site_key = site_key.main(GCLOUD_PROJECT, DOMAIN_NAME)
+    recaptcha_site_key = site_key.main(PROJECT, DOMAIN_NAME)
 
     out, _ = capsys.readouterr()
 

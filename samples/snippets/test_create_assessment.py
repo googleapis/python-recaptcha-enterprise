@@ -1,6 +1,7 @@
 import time
 import typing
 
+import google
 import pytest
 from flask import url_for
 from selenium import webdriver
@@ -11,7 +12,7 @@ import site_key
 from app import create_app
 
 # TODO(developer): Replace these variables before running the sample.
-GCLOUD_PROJECT = "your-gcloud-project-id"
+PROJECT = google.auth.default()[1]
 DOMAIN_NAME = "localhost"
 
 
@@ -29,9 +30,9 @@ def browser():
 
 @pytest.fixture(scope="module")
 def recaptcha_site_key():
-    recaptcha_site_key = site_key.create_site_key(project_id=GCLOUD_PROJECT, domain_name=DOMAIN_NAME)
+    recaptcha_site_key = site_key.create_site_key(project_id=PROJECT, domain_name=DOMAIN_NAME)
     yield recaptcha_site_key
-    site_key.delete_site_key(project_id=GCLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
+    site_key.delete_site_key(project_id=PROJECT, recaptcha_site_key=recaptcha_site_key)
 
 
 @pytest.mark.usefixtures('live_server')
@@ -62,7 +63,7 @@ class TestLiveServer(object):
         return token, action
 
     def assess_token(self, recaptcha_site_key: str, token: str, action: str) -> None:
-        create_assessment.create_assessment(project_id=GCLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key,
+        create_assessment.create_assessment(project_id=PROJECT, recaptcha_site_key=recaptcha_site_key,
                                             token=token,
                                             recaptcha_action=action)
 
