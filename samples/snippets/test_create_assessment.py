@@ -1,3 +1,17 @@
+# Copyright 2021 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import time
 import typing
 
@@ -12,7 +26,7 @@ import site_key
 from app import create_app
 
 # TODO(developer): Replace these variables before running the sample.
-PROJECT = google.auth.default()[1]
+GOOGLE_CLOUD_PROJECT = google.auth.default()[1]
 DOMAIN_NAME = "localhost"
 
 
@@ -30,9 +44,9 @@ def browser():
 
 @pytest.fixture(scope="module")
 def recaptcha_site_key():
-    recaptcha_site_key = site_key.create_site_key(project_id=PROJECT, domain_name=DOMAIN_NAME)
+    recaptcha_site_key = site_key.create_site_key(project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME)
     yield recaptcha_site_key
-    site_key.delete_site_key(project_id=PROJECT, recaptcha_site_key=recaptcha_site_key)
+    site_key.delete_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
 
 
 @pytest.mark.usefixtures('live_server')
@@ -63,7 +77,7 @@ class TestLiveServer(object):
         return token, action
 
     def assess_token(self, recaptcha_site_key: str, token: str, action: str) -> None:
-        create_assessment.create_assessment(project_id=PROJECT, recaptcha_site_key=recaptcha_site_key,
+        create_assessment.create_assessment(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key,
                                             token=token,
                                             recaptcha_action=action)
 
