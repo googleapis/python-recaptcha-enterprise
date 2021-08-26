@@ -33,8 +33,8 @@ from google.cloud import recaptchaenterprise_v1
 def create_site_key(project_id: str, domain_name: str) -> str:
     """Create reCAPTCHA Site key which binds a domain name to a unique key.
     Args:
-    projectID : GCloud Project ID.
-    domainName: Specify the domain name in which the reCAPTCHA should be activated.
+    project_id : GCloud Project ID.
+    domain_name: Specify the domain name in which the reCAPTCHA should be activated.
     """
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
@@ -94,7 +94,7 @@ def list_site_keys(project_id: str) -> None:
     """ List all keys present under the given project ID.
 
     Args:
-    projectID: GCloud Project ID.
+    project_id: GCloud Project ID.
     """
 
     project_name = f'projects/{project_id}'
@@ -107,8 +107,8 @@ def list_site_keys(project_id: str) -> None:
 
     response = client.list_keys(request)
     print("Listing reCAPTCHA site keys: ")
-    for key in response:
-        print(key.name)
+    for i, key in enumerate(response):
+        print(str(i) + '. ' + key.name)
 
 
 # [END recaptcha_enterprise_list_site_keys]

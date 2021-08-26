@@ -19,10 +19,10 @@ from google.cloud import recaptchaenterprise_v1
 def create_assessment(project_id: str, recaptcha_site_key:str, token:str, recaptcha_action: str) -> None:
     """ Create an assessment to analyze the risk of a UI action.
     Args:
-        projectID: GCloud Project ID
-        recaptchaSiteKey: Site key obtained by registering a domain/app to use recaptcha services.
+        project_id: GCloud Project ID
+        recaptcha_site_key: Site key obtained by registering a domain/app to use recaptcha services.
         token: The token obtained from the client on passing the recaptchaSiteKey.
-        recaptchaAction: Action name corresponding to the token.
+        recaptcha_action: Action name corresponding to the token.
     """
 
     # TODO(developer): Replace these variables before running the sample.
