@@ -14,14 +14,15 @@
 
 import time
 import typing
+from typing import Tuple
 
-import google
 import pytest
 from flask import url_for
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 import create_assessment
+import google
 import site_key
 from app import create_app
 
@@ -60,7 +61,7 @@ class TestLiveServer(object):
         score = out.rsplit(":", maxsplit=1)[1].strip()
         self.set_score(browser, score)
 
-    def get_token(self, recaptcha_site_key, browser):
+    def get_token(self, recaptcha_site_key, browser) -> typing.Tuple:
         browser.get(url_for('assess', site_key=recaptcha_site_key, _external=True))
         time.sleep(5)
 

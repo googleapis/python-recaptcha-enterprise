@@ -16,7 +16,6 @@ import re
 import typing
 
 import google
-
 import site_key
 
 # TODO(developer): Replace these variables before running the sample.
