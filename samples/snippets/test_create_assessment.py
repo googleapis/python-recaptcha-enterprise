@@ -11,10 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import re
 import time
 import typing
-from typing import Tuple
 
 import pytest
 from flask import url_for
@@ -57,12 +56,12 @@ class TestLiveServer(object):
         token, action = self.get_token(recaptcha_site_key, browser)
         self.assess_token(recaptcha_site_key, token=token, action=action)
         out, _ = capsys.readouterr()
-        assert f"The reCAPTCHA score for this token is: " in out
+        assert re.search("The reCAPTCHA score for this token is: ", out)
         score = out.rsplit(":", maxsplit=1)[1].strip()
         self.set_score(browser, score)
 
     def get_token(self, recaptcha_site_key, browser) -> typing.Tuple:
-        browser.get(url_for('assess', site_key=recaptcha_site_key, _external=True))
+        browser.get(url_for("assess", site_key=recaptcha_site_key, _external=True))
         time.sleep(5)
 
         browser.find_element_by_id("username").send_keys("username")
