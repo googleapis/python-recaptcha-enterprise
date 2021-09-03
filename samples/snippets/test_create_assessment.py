@@ -11,75 +11,89 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+import os
 import re
 import time
 import typing
 
 import pytest
-from flask import url_for
+from _pytest.capture import CaptureFixture
+from flask import url_for, Flask, render_template
 from selenium import webdriver
+from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 import create_assessment
-import google
-import site_key
-from app import create_app
-
 # TODO(developer): Replace these variables before running the sample.
-GOOGLE_CLOUD_PROJECT = google.auth.default()[1]
+from create_site_key import create_site_key
+from delete_site_key import delete_site_key
+
+GOOGLE_CLOUD_PROJECT = os.environ['GOOGLE_CLOUD_PROJECT']
 DOMAIN_NAME = "localhost"
 
 
 @pytest.fixture(scope="session")
-def app():
-    return create_app()
+def app() -> Flask:
+    app = Flask(__name__)
+
+    @app.route("/assess/<site_key>", methods=['GET'])
+    def assess(site_key):
+        return render_template("index.html", site_key=site_key)
+
+    @app.route("/", methods=['GET'])
+    def index():
+        return "Helloworld!"
+
+    return app
 
 
 @pytest.fixture(scope="module")
-def browser():
+def browser() -> WebDriver:
     browser = webdriver.Chrome(ChromeDriverManager().install())
     yield browser
     browser.close()
 
 
 @pytest.fixture(scope="module")
-def recaptcha_site_key():
-    recaptcha_site_key = site_key.create_site_key(project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME)
+def recaptcha_site_key() -> str:
+    recaptcha_site_key = create_site_key(project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME)
     yield recaptcha_site_key
-    site_key.delete_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
+    delete_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
 
 
 @pytest.mark.usefixtures('live_server')
-class TestLiveServer(object):
+def test_create_assessment(capsys: CaptureFixture, recaptcha_site_key: str, browser: WebDriver) -> None:
+    token, action = get_token(recaptcha_site_key, browser)
+    assess_token(recaptcha_site_key, token=token, action=action)
+    out, _ = capsys.readouterr()
+    assert re.search("The reCAPTCHA score for this token is: ", out)
+    score = out.rsplit(":", maxsplit=1)[1].strip()
+    set_score(browser, score)
 
-    def test_create_assessment(self, capsys: typing.Any, recaptcha_site_key, browser) -> None:
-        token, action = self.get_token(recaptcha_site_key, browser)
-        self.assess_token(recaptcha_site_key, token=token, action=action)
-        out, _ = capsys.readouterr()
-        assert re.search("The reCAPTCHA score for this token is: ", out)
-        score = out.rsplit(":", maxsplit=1)[1].strip()
-        self.set_score(browser, score)
 
-    def get_token(self, recaptcha_site_key, browser) -> typing.Tuple:
-        browser.get(url_for("assess", site_key=recaptcha_site_key, _external=True))
-        time.sleep(5)
+def get_token(recaptcha_site_key: str, browser: WebDriver) -> typing.Tuple:
+    browser.get(url_for("assess", site_key=recaptcha_site_key, _external=True))
+    time.sleep(5)
 
-        browser.find_element_by_id("username").send_keys("username")
-        browser.find_element_by_id("password").send_keys("password")
-        browser.find_element_by_id("recaptchabutton").click()
+    browser.find_element_by_id("username").send_keys("username")
+    browser.find_element_by_id("password").send_keys("password")
+    browser.find_element_by_id("recaptchabutton").click()
 
-        # Timeout of 5 seconds
-        time.sleep(5)
+    # Timeout of 5 seconds
+    time.sleep(5)
 
-        element = browser.find_element_by_css_selector("#assessment")
-        token = element.get_attribute("data-token")
-        action = element.get_attribute("data-action")
-        return token, action
+    element = browser.find_element_by_css_selector("#assessment")
+    token = element.get_attribute("data-token")
+    action = element.get_attribute("data-action")
+    return token, action
 
-    def assess_token(self, recaptcha_site_key: str, token: str, action: str) -> None:
-        create_assessment.create_assessment(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key,
-                                            token=token,
-                                            recaptcha_action=action)
 
-    def set_score(self, browser, score: str) -> None:
-        browser.find_element_by_css_selector("#assessment").send_keys(score)
+def assess_token(recaptcha_site_key: str, token: str, action: str) -> None:
+    create_assessment.create_assessment(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key,
+                                        token=token,
+                                        recaptcha_action=action)
+
+
+def set_score(browser, score: str) -> None:
+    browser.find_element_by_css_selector("#assessment").send_keys(score)

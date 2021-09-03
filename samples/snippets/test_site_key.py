@@ -11,27 +11,47 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import os
 import re
-import typing
 
-import google
+import pytest
+from _pytest.capture import CaptureFixture
 
-import site_key
+from create_site_key import create_site_key
+from delete_site_key import delete_site_key
+from get_site_key import get_site_key
+from list_site_keys import list_site_keys
+from update_site_key import update_site_key
 
 # TODO(developer): Replace these variables before running the sample.
-GOOGLE_CLOUD_PROJECT = google.auth.default()[1]
+GOOGLE_CLOUD_PROJECT = os.environ['GOOGLE_CLOUD_PROJECT']
 DOMAIN_NAME = "localhost"
 
 
-def test_recaptcha_site_key(capsys: typing.Any) -> None:
-    recaptcha_site_key = site_key.main(GOOGLE_CLOUD_PROJECT, DOMAIN_NAME)
+@pytest.fixture(scope="module")
+def recaptcha_site_key() -> str:
+    recaptcha_site_key = create_site_key(project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME)
+    yield recaptcha_site_key
+    delete_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
 
-    out, _ = capsys.readouterr()
 
-    assert re.search(f"reCAPTCHA Site key created successfully. Site Key: {recaptcha_site_key}", out)
+def test_create_site_key(recaptcha_site_key: str) -> None:
     assert len(recaptcha_site_key) != 0
-    assert re.search(f"{recaptcha_site_key}", out)
+
+
+def test_list_site_keys(capsys: CaptureFixture) -> None:
+    list_site_keys(project_id=GOOGLE_CLOUD_PROJECT)
+    out, _ = capsys.readouterr()
+    assert re.search(f"projects/{GOOGLE_CLOUD_PROJECT}/keys{recaptcha_site_key}", out)
+
+
+def test_get_site_key(capsys: CaptureFixture, recaptcha_site_key: str) -> None:
+    get_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
+    out, _ = capsys.readouterr()
     assert re.search(f"Successfully obtained the key !.+{recaptcha_site_key}", out)
+
+
+def test_update_site_key(capsys: CaptureFixture, recaptcha_site_key: str) -> None:
+    update_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key, domain_name=DOMAIN_NAME)
+    out, _ = capsys.readouterr()
     assert re.search("reCAPTCHA Site key successfully updated ! ", out)
-    assert re.search("reCAPTCHA Site key deleted successfully !", out)
