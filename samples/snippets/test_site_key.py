@@ -14,8 +14,8 @@
 import os
 import re
 
-import pytest
 from _pytest.capture import CaptureFixture
+import pytest
 
 from create_site_key import create_site_key
 from delete_site_key import delete_site_key

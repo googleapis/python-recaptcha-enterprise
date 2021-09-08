@@ -36,7 +36,7 @@ def update_site_key(project_id: str, recaptcha_site_key: str, domain_name: str) 
     # Set the name and the new settings for the key.
     web_settings = recaptchaenterprise_v1.WebKeySettings()
     web_settings.allow_amp_traffic = True
-    web_settings.allowed_domains.append(domain_name)  # TODO
+    web_settings.allowed_domains.append(domain_name)
 
     key = recaptchaenterprise_v1.Key()
     key.name = key_name

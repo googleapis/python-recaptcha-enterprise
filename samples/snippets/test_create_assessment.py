@@ -17,9 +17,9 @@ import re
 import time
 import typing
 
-import pytest
 from _pytest.capture import CaptureFixture
-from flask import url_for, Flask, render_template
+import pytest
+from flask import Flask, render_template, url_for
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -39,11 +39,11 @@ def app() -> Flask:
     app = Flask(__name__)
 
     @app.route("/assess/<site_key>", methods=["GET"])
-    def assess(site_key):
+    def assess(site_key: str) -> str:
         return render_template("index.html", site_key=site_key)
 
     @app.route("/", methods=["GET"])
-    def index():
+    def index() -> str:
         return "Helloworld!"
 
     return app
@@ -105,5 +105,5 @@ def assess_token(recaptcha_site_key: str, token: str, action: str) -> None:
     )
 
 
-def set_score(browser, score: str) -> None:
+def set_score(browser: WebDriver, score: str) -> None:
     browser.find_element_by_css_selector("#assessment").send_keys(score)

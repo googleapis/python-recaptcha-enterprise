@@ -29,10 +29,7 @@ def create_site_key(project_id: str, domain_name: str) -> str:
     web_settings = recaptchaenterprise_v1.WebKeySettings()
     web_settings.allowed_domains.append(domain_name)
     web_settings.allow_amp_traffic = False
-    web_settings.integration_type = web_settings.IntegrationType.CHECKBOX
-    web_settings.challenge_security_preference = (
-        web_settings.ChallengeSecurityPreference.USABILITY
-    )
+    web_settings.integration_type = web_settings.IntegrationType.SCORE
 
     key = recaptchaenterprise_v1.Key()
     key.display_name = "any descriptive name for the key"
