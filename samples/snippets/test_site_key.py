@@ -43,10 +43,10 @@ def test_create_site_key(recaptcha_site_key: str) -> None:
     assert len(recaptcha_site_key) != 0
 
 
-def test_list_site_keys(capsys: CaptureFixture) -> None:
+def test_list_site_keys(capsys: CaptureFixture, recaptcha_site_key: str) -> None:
     list_site_keys(project_id=GOOGLE_CLOUD_PROJECT)
     out, _ = capsys.readouterr()
-    assert re.search(f"projects/{GOOGLE_CLOUD_PROJECT}/keys{recaptcha_site_key}", out)
+    assert re.search(f"keys/{recaptcha_site_key}", out)
 
 
 def test_get_site_key(capsys: CaptureFixture, recaptcha_site_key: str) -> None:
@@ -59,7 +59,7 @@ def test_update_site_key(capsys: CaptureFixture, recaptcha_site_key: str) -> Non
     update_site_key(
         project_id=GOOGLE_CLOUD_PROJECT,
         recaptcha_site_key=recaptcha_site_key,
-        domain_name=DOMAIN_NAME,
+        domain_name=DOMAIN_NAME
     )
     out, _ = capsys.readouterr()
     assert re.search("reCAPTCHA Site key successfully updated ! ", out)

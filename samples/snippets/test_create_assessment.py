@@ -51,7 +51,7 @@ def app() -> Flask:
 
 @pytest.fixture(scope="module")
 def browser() -> WebDriver:
-    browser = webdriver.Chrome(ChromeDriverManager().install())
+    browser = webdriver.Chrome(ChromeDriverManager(version="latest").install())
     yield browser
     browser.close()
 
