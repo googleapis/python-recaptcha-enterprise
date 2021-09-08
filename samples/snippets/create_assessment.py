@@ -16,7 +16,9 @@
 from google.cloud import recaptchaenterprise_v1
 
 
-def create_assessment(project_id: str, recaptcha_site_key: str, token: str, recaptcha_action: str) -> None:
+def create_assessment(
+    project_id: str, recaptcha_site_key: str, token: str, recaptcha_action: str
+) -> None:
     """ Create an assessment to analyze the risk of a UI action.
     Args:
         project_id: GCloud Project ID
@@ -40,7 +42,7 @@ def create_assessment(project_id: str, recaptcha_site_key: str, token: str, reca
     assessment.event = event
     assessment.name = assessment_name
 
-    project_name = f'projects/{project_id}'
+    project_name = f"projects/{project_id}"
 
     # Build the assessment request.
     request = recaptchaenterprise_v1.CreateAssessmentRequest()
@@ -51,9 +53,11 @@ def create_assessment(project_id: str, recaptcha_site_key: str, token: str, reca
 
     # Check if the token is valid.
     if not response.token_properties.valid:
-        print("The CreateAssessment call failed because the token was " +
-              "invalid for for the following reasons: "
-              + str(response.token_properties.invalid_reason))
+        print(
+            "The CreateAssessment call failed because the token was "
+            + "invalid for for the following reasons: "
+            + str(response.token_properties.invalid_reason)
+        )
     else:
         # Check if the expected action was executed.
         if response.token_properties.action == recaptcha_action:
@@ -62,9 +66,15 @@ def create_assessment(project_id: str, recaptcha_site_key: str, token: str, reca
             # see: https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment
             for reason in response.risk_analysis.reasons:
                 print(reason)
-            print("The reCAPTCHA score for this token is: " +
-                  str(response.risk_analysis.score))
+            print(
+                "The reCAPTCHA score for this token is: "
+                + str(response.risk_analysis.score)
+            )
         else:
-            print("The action attribute in your reCAPTCHA tag does" +
-                  "not match the action you are expecting to score")
+            print(
+                "The action attribute in your reCAPTCHA tag does"
+                + "not match the action you are expecting to score"
+            )
+
+
 # [END recaptcha_enterprise_create_assessment]

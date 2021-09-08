@@ -23,7 +23,7 @@ def list_site_keys(project_id: str) -> None:
     project_id: GCloud Project ID.
     """
 
-    project_name = f'projects/{project_id}'
+    project_name = f"projects/{project_id}"
 
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 

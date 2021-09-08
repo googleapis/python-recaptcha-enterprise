@@ -25,11 +25,12 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 import create_assessment
+
 # TODO(developer): Replace these variables before running the sample.
 from create_site_key import create_site_key
 from delete_site_key import delete_site_key
 
-GOOGLE_CLOUD_PROJECT = os.environ['GOOGLE_CLOUD_PROJECT']
+GOOGLE_CLOUD_PROJECT = os.environ["GOOGLE_CLOUD_PROJECT"]
 DOMAIN_NAME = "localhost"
 
 
@@ -37,11 +38,11 @@ DOMAIN_NAME = "localhost"
 def app() -> Flask:
     app = Flask(__name__)
 
-    @app.route("/assess/<site_key>", methods=['GET'])
+    @app.route("/assess/<site_key>", methods=["GET"])
     def assess(site_key):
         return render_template("index.html", site_key=site_key)
 
-    @app.route("/", methods=['GET'])
+    @app.route("/", methods=["GET"])
     def index():
         return "Helloworld!"
 
@@ -57,13 +58,19 @@ def browser() -> WebDriver:
 
 @pytest.fixture(scope="module")
 def recaptcha_site_key() -> str:
-    recaptcha_site_key = create_site_key(project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME)
+    recaptcha_site_key = create_site_key(
+        project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME
+    )
     yield recaptcha_site_key
-    delete_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
+    delete_site_key(
+        project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key
+    )
 
 
-@pytest.mark.usefixtures('live_server')
-def test_create_assessment(capsys: CaptureFixture, recaptcha_site_key: str, browser: WebDriver) -> None:
+@pytest.mark.usefixtures("live_server")
+def test_create_assessment(
+    capsys: CaptureFixture, recaptcha_site_key: str, browser: WebDriver
+) -> None:
     token, action = get_token(recaptcha_site_key, browser)
     assess_token(recaptcha_site_key, token=token, action=action)
     out, _ = capsys.readouterr()
@@ -90,9 +97,12 @@ def get_token(recaptcha_site_key: str, browser: WebDriver) -> typing.Tuple:
 
 
 def assess_token(recaptcha_site_key: str, token: str, action: str) -> None:
-    create_assessment.create_assessment(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key,
-                                        token=token,
-                                        recaptcha_action=action)
+    create_assessment.create_assessment(
+        project_id=GOOGLE_CLOUD_PROJECT,
+        recaptcha_site_key=recaptcha_site_key,
+        token=token,
+        recaptcha_action=action,
+    )
 
 
 def set_score(browser, score: str) -> None:

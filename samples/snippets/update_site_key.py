@@ -31,7 +31,7 @@ def update_site_key(project_id: str, recaptcha_site_key: str, domain_name: str) 
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
     # Construct the key details.
-    key_name = f'projects/{project_id}/keys/{recaptcha_site_key}'
+    key_name = f"projects/{project_id}/keys/{recaptcha_site_key}"
 
     # Set the name and the new settings for the key.
     web_settings = recaptchaenterprise_v1.WebKeySettings()
@@ -56,7 +56,9 @@ def update_site_key(project_id: str, recaptcha_site_key: str, domain_name: str) 
 
     # Get the changed property.
     if not web_settings.allow_amp_traffic:
-        print("Error! reCAPTCHA Site key property hasn't been updated. Please try again !")
+        print(
+            "Error! reCAPTCHA Site key property hasn't been updated. Please try again !"
+        )
     else:
         print("reCAPTCHA Site key successfully updated ! ")
 

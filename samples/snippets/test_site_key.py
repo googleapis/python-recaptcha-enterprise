@@ -24,15 +24,19 @@ from list_site_keys import list_site_keys
 from update_site_key import update_site_key
 
 # TODO(developer): Replace these variables before running the sample.
-GOOGLE_CLOUD_PROJECT = os.environ['GOOGLE_CLOUD_PROJECT']
+GOOGLE_CLOUD_PROJECT = os.environ["GOOGLE_CLOUD_PROJECT"]
 DOMAIN_NAME = "localhost"
 
 
 @pytest.fixture(scope="module")
 def recaptcha_site_key() -> str:
-    recaptcha_site_key = create_site_key(project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME)
+    recaptcha_site_key = create_site_key(
+        project_id=GOOGLE_CLOUD_PROJECT, domain_name=DOMAIN_NAME
+    )
     yield recaptcha_site_key
-    delete_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
+    delete_site_key(
+        project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key
+    )
 
 
 def test_create_site_key(recaptcha_site_key: str) -> None:
@@ -52,6 +56,10 @@ def test_get_site_key(capsys: CaptureFixture, recaptcha_site_key: str) -> None:
 
 
 def test_update_site_key(capsys: CaptureFixture, recaptcha_site_key: str) -> None:
-    update_site_key(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key, domain_name=DOMAIN_NAME)
+    update_site_key(
+        project_id=GOOGLE_CLOUD_PROJECT,
+        recaptcha_site_key=recaptcha_site_key,
+        domain_name=DOMAIN_NAME,
+    )
     out, _ = capsys.readouterr()
     assert re.search("reCAPTCHA Site key successfully updated ! ", out)

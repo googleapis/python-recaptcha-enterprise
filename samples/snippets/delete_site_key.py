@@ -27,7 +27,7 @@ def delete_site_key(project_id: str, recaptcha_site_key: str) -> None:
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
     # Construct the key details.
-    key_name = f'projects/{project_id}/keys/{recaptcha_site_key}'
+    key_name = f"projects/{project_id}/keys/{recaptcha_site_key}"
 
     # Set the project ID and reCAPTCHA site key.
     request = recaptchaenterprise_v1.DeleteKeyRequest()
