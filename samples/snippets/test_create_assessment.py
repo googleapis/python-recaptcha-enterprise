@@ -18,8 +18,8 @@ import time
 import typing
 
 from _pytest.capture import CaptureFixture
-import pytest
 from flask import Flask, render_template, url_for
+import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
