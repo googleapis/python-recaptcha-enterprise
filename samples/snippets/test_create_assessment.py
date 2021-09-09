@@ -23,6 +23,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
 
 import create_assessment
 
@@ -51,7 +52,7 @@ def app() -> Flask:
 
 @pytest.fixture(scope="module")
 def browser() -> WebDriver:
-    browser = webdriver.Chrome(ChromeDriverManager(version="latest").install())
+    browser = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
     yield browser
     browser.close()
 

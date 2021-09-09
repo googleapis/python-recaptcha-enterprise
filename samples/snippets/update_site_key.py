@@ -39,6 +39,7 @@ def update_site_key(project_id: str, recaptcha_site_key: str, domain_name: str) 
     web_settings.allowed_domains.append(domain_name)
 
     key = recaptchaenterprise_v1.Key()
+    key.display_name = "any descriptive name for the key"
     key.name = key_name
     key.web_settings = web_settings
 
