@@ -47,7 +47,8 @@ s.move(
         ".coveragerc",  # the microgenerator has a good coveragerc file
         # TODO(busunkim): remove once synthtool templating properly accomodates
         # custom sample Dockerfile
-        ".kokoro/samples/python*/common.cfg"  
+        ".kokoro/samples/python*/common.cfg",
+        ".trampolinerc"
     ]
 )  
 
