@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ FROM gcr.io/cloud-devrel-kokoro-resources/python-samples-testing-docker
 
 # TODO: Add Chrome Installation Here
 
-ENV TEST_ENV_VAR some_test_value
+# DELETE ME: Placeholder installation
+RUN apt-get update
+RUN apt-get install -y pandoc
 
 CMD ["python3.6"]
