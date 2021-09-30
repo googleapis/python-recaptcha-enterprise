@@ -18,4 +18,6 @@ FROM gcr.io/cloud-devrel-kokoro-resources/python-samples-testing-docker
 
 # TODO: Add Chrome Installation Here
 
+ENV TEST_ENV_VAR some_test_value
+
 CMD ["python3.6"]
