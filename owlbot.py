@@ -42,8 +42,14 @@ s.remove_staging_dirs()
 templated_files = common.py_library(cov_level=98, microgenerator=True)
 
 s.move(
-    templated_files, excludes=[".coveragerc"]
-)  # the microgenerator has a good coveragerc file
+    templated_files, 
+    excludes=[
+        ".coveragerc",  # the microgenerator has a good coveragerc file
+        # TODO(busunkim): remove once synthtool templating properly accomodates
+        # custom sample Dockerfile
+        ".kokoro/samples/python*/common.cfg"  
+    ]
+)  
 
 python.py_samples(skip_readmes=True)
 
