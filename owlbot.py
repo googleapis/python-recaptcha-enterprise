@@ -54,9 +54,9 @@ s.move(
         # https://github.com/googleapis/synthtool/pull/1232/files
         ".kokoro/test-samples-against-head.sh",
         ".kokoro/test-samples.sh",
-        ".kokoro/samples/lint/common.cfg"
+        ".kokoro/samples/lint/common.cfg",
         ".kokoro/samples/python*/common.cfg",
-        ".trampolinerc"
+        ".trampolinerc",
     ]
 )  
 
