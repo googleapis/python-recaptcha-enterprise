@@ -55,7 +55,7 @@ s.move(
         ".kokoro/test-samples-against-head.sh",
         ".kokoro/test-samples.sh",
         ".kokoro/samples/lint/common.cfg",
-        ".kokoro/samples/python*/common.cfg",
+        ".kokoro/samples/python*/*.cfg",
         ".trampolinerc",
     ]
 )  
