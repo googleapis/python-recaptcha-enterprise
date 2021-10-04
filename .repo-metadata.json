@@ -10,6 +10,6 @@
     "repo": "googleapis/python-recaptcha-enterprise",
     "distribution_name": "google-cloud-recaptcha-enterprise",
     "api_id": "recaptchaenterprise.googleapis.com",
-    "default_version": "",
+    "default_version": "v1",
     "codeowner_team": ""
 }
