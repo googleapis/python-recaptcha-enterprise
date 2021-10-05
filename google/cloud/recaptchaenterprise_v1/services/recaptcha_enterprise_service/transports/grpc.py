@@ -81,16 +81,16 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
             api_mtls_endpoint (Optional[str]): Deprecated. The mutual TLS endpoint.
                 If provided, it overrides the ``host`` argument and tries to create
                 a mutual TLS channel with client SSL credentials from
-                ``client_cert_source`` or applicatin default SSL credentials.
+                ``client_cert_source`` or application default SSL credentials.
             client_cert_source (Optional[Callable[[], Tuple[bytes, bytes]]]):
                 Deprecated. A callback to provide client SSL certificate bytes and
                 private key bytes, both in PEM format. It is ignored if
                 ``api_mtls_endpoint`` is None.
             ssl_channel_credentials (grpc.ChannelCredentials): SSL credentials
-                for grpc channel. It is ignored if ``channel`` is provided.
+                for the grpc channel. It is ignored if ``channel`` is provided.
             client_cert_source_for_mtls (Optional[Callable[[], Tuple[bytes, bytes]]]):
                 A callback to provide client certificate bytes and private key bytes,
-                both in PEM format. It is used to configure mutual TLS channel. It is
+                both in PEM format. It is used to configure a mutual TLS channel. It is
                 ignored if ``channel`` or ``ssl_channel_credentials`` is provided.
             quota_project_id (Optional[str]): An optional project to use for billing
                 and quota.
@@ -266,7 +266,7 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
 
         Annotates a previously created Assessment to provide
         additional information on whether the event turned out
-        to be authentic or fradulent.
+        to be authentic or fraudulent.
 
         Returns:
             Callable[[~.AnnotateAssessmentRequest],
@@ -418,6 +418,65 @@ class RecaptchaEnterpriseServiceGrpcTransport(RecaptchaEnterpriseServiceTranspor
                 response_deserializer=empty_pb2.Empty.FromString,
             )
         return self._stubs["delete_key"]
+
+    @property
+    def migrate_key(
+        self,
+    ) -> Callable[[recaptchaenterprise.MigrateKeyRequest], recaptchaenterprise.Key]:
+        r"""Return a callable for the migrate key method over gRPC.
+
+        Migrates an existing key from reCAPTCHA to reCAPTCHA
+        Enterprise. Once a key is migrated, it can be used from
+        either product. SiteVerify requests are billed as
+        CreateAssessment calls. You must be authenticated as one
+        of the current owners of the reCAPTCHA Site Key, and
+        your user must have the reCAPTCHA Enterprise Admin IAM
+        role in the destination project.
+
+        Returns:
+            Callable[[~.MigrateKeyRequest],
+                    ~.Key]:
+                A function that, when called, will call the underlying RPC
+                on the server.
+        """
+        # Generate a "stub function" on-the-fly which will actually make
+        # the request.
+        # gRPC handles serialization and deserialization, so we just need
+        # to pass in the functions for each.
+        if "migrate_key" not in self._stubs:
+            self._stubs["migrate_key"] = self.grpc_channel.unary_unary(
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/MigrateKey",
+                request_serializer=recaptchaenterprise.MigrateKeyRequest.serialize,
+                response_deserializer=recaptchaenterprise.Key.deserialize,
+            )
+        return self._stubs["migrate_key"]
+
+    @property
+    def get_metrics(
+        self,
+    ) -> Callable[[recaptchaenterprise.GetMetricsRequest], recaptchaenterprise.Metrics]:
+        r"""Return a callable for the get metrics method over gRPC.
+
+        Get some aggregated metrics for a Key. This data can
+        be used to build dashboards.
+
+        Returns:
+            Callable[[~.GetMetricsRequest],
+                    ~.Metrics]:
+                A function that, when called, will call the underlying RPC
+                on the server.
+        """
+        # Generate a "stub function" on-the-fly which will actually make
+        # the request.
+        # gRPC handles serialization and deserialization, so we just need
+        # to pass in the functions for each.
+        if "get_metrics" not in self._stubs:
+            self._stubs["get_metrics"] = self.grpc_channel.unary_unary(
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/GetMetrics",
+                request_serializer=recaptchaenterprise.GetMetricsRequest.serialize,
+                response_deserializer=recaptchaenterprise.Metrics.deserialize,
+            )
+        return self._stubs["get_metrics"]
 
 
 __all__ = ("RecaptchaEnterpriseServiceGrpcTransport",)

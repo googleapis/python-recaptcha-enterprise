@@ -118,7 +118,7 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
                 **scopes_kwargs, quota_project_id=quota_project_id
             )
 
-        # If the credentials is service account credentials, then always try to use self signed JWT.
+        # If the credentials are service account credentials, then always try to use self signed JWT.
         if (
             always_use_jwt_access
             and isinstance(credentials, service_account.Credentials)
@@ -177,6 +177,12 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
             ),
             self.delete_key: gapic_v1.method.wrap_method(
                 self.delete_key, default_timeout=600.0, client_info=client_info,
+            ),
+            self.migrate_key: gapic_v1.method.wrap_method(
+                self.migrate_key, default_timeout=None, client_info=client_info,
+            ),
+            self.get_metrics: gapic_v1.method.wrap_method(
+                self.get_metrics, default_timeout=None, client_info=client_info,
             ),
         }
 
@@ -248,6 +254,24 @@ class RecaptchaEnterpriseServiceTransport(abc.ABC):
     ) -> Callable[
         [recaptchaenterprise.DeleteKeyRequest],
         Union[empty_pb2.Empty, Awaitable[empty_pb2.Empty]],
+    ]:
+        raise NotImplementedError()
+
+    @property
+    def migrate_key(
+        self,
+    ) -> Callable[
+        [recaptchaenterprise.MigrateKeyRequest],
+        Union[recaptchaenterprise.Key, Awaitable[recaptchaenterprise.Key]],
+    ]:
+        raise NotImplementedError()
+
+    @property
+    def get_metrics(
+        self,
+    ) -> Callable[
+        [recaptchaenterprise.GetMetricsRequest],
+        Union[recaptchaenterprise.Metrics, Awaitable[recaptchaenterprise.Metrics]],
     ]:
         raise NotImplementedError()
 

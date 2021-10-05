@@ -1,5 +1,26 @@
 # Changelog
 
+### [1.1.2](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.1.1...v1.1.2) (2021-09-30)
+
+
+### Bug Fixes
+
+* improper types in pagers generation ([cab9a71](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/cab9a71083b2482396ecd53051bb694937c7fe7d))
+
+### [1.1.1](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.1.0...v1.1.1) (2021-09-24)
+
+
+### Bug Fixes
+
+* add 'dict' annotation type to 'request' ([7d49e68](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/7d49e6830e0f914d8fb2f20961a3ae6953244ed4))
+
+## [1.1.0](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.0.0...v1.1.0) (2021-09-16)
+
+
+### Features
+
+* add GetMetrics and MigrateKey methods to reCAPTCHA enterprise API ([#119](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/119)) ([6c8bf2f](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/6c8bf2f7f9fabb7fb23257fe5978ba59160d6875))
+
 ## [1.0.0](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v0.4.2...v1.0.0) (2021-08-03)
 
 

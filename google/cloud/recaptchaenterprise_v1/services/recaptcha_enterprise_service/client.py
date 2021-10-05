@@ -17,7 +17,7 @@ from collections import OrderedDict
 from distutils import util
 import os
 import re
-from typing import Callable, Dict, Optional, Sequence, Tuple, Type, Union
+from typing import Dict, Optional, Sequence, Tuple, Type, Union
 import pkg_resources
 
 from google.api_core import client_options as client_options_lib  # type: ignore
@@ -184,6 +184,17 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
     def parse_key_path(path: str) -> Dict[str, str]:
         """Parses a key path into its component segments."""
         m = re.match(r"^projects/(?P<project>.+?)/keys/(?P<key>.+?)$", path)
+        return m.groupdict() if m else {}
+
+    @staticmethod
+    def metrics_path(project: str, key: str,) -> str:
+        """Returns a fully-qualified metrics string."""
+        return "projects/{project}/keys/{key}/metrics".format(project=project, key=key,)
+
+    @staticmethod
+    def parse_metrics_path(path: str) -> Dict[str, str]:
+        """Parses a metrics path into its component segments."""
+        m = re.match(r"^projects/(?P<project>.+?)/keys/(?P<key>.+?)/metrics$", path)
         return m.groupdict() if m else {}
 
     @staticmethod
@@ -367,7 +378,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def create_assessment(
         self,
-        request: recaptchaenterprise.CreateAssessmentRequest = None,
+        request: Union[recaptchaenterprise.CreateAssessmentRequest, dict] = None,
         *,
         parent: str = None,
         assessment: recaptchaenterprise.Assessment = None,
@@ -379,7 +390,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         legitimate.
 
         Args:
-            request (google.cloud.recaptchaenterprise_v1.types.CreateAssessmentRequest):
+            request (Union[google.cloud.recaptchaenterprise_v1.types.CreateAssessmentRequest, dict]):
                 The request object. The create assessment request
                 message.
             parent (str):
@@ -446,7 +457,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def annotate_assessment(
         self,
-        request: recaptchaenterprise.AnnotateAssessmentRequest = None,
+        request: Union[recaptchaenterprise.AnnotateAssessmentRequest, dict] = None,
         *,
         name: str = None,
         annotation: recaptchaenterprise.AnnotateAssessmentRequest.Annotation = None,
@@ -456,10 +467,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
     ) -> recaptchaenterprise.AnnotateAssessmentResponse:
         r"""Annotates a previously created Assessment to provide
         additional information on whether the event turned out
-        to be authentic or fradulent.
+        to be authentic or fraudulent.
 
         Args:
-            request (google.cloud.recaptchaenterprise_v1.types.AnnotateAssessmentRequest):
+            request (Union[google.cloud.recaptchaenterprise_v1.types.AnnotateAssessmentRequest, dict]):
                 The request object. The request message to annotate an
                 Assessment.
             name (str):
@@ -471,8 +482,11 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
                 on the ``request`` instance; if ``request`` is provided, this
                 should not be set.
             annotation (google.cloud.recaptchaenterprise_v1.types.AnnotateAssessmentRequest.Annotation):
-                Required. The annotation that will be
-                assigned to the Event.
+                Optional. The annotation that will be
+                assigned to the Event. This field can be
+                left empty to provide reasons that apply
+                to an event without concluding whether
+                the event is legitimate or fraudulent.
 
                 This corresponds to the ``annotation`` field
                 on the ``request`` instance; if ``request`` is provided, this
@@ -530,7 +544,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def create_key(
         self,
-        request: recaptchaenterprise.CreateKeyRequest = None,
+        request: Union[recaptchaenterprise.CreateKeyRequest, dict] = None,
         *,
         retry: retries.Retry = gapic_v1.method.DEFAULT,
         timeout: float = None,
@@ -539,7 +553,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         r"""Creates a new reCAPTCHA Enterprise key.
 
         Args:
-            request (google.cloud.recaptchaenterprise_v1.types.CreateKeyRequest):
+            request (Union[google.cloud.recaptchaenterprise_v1.types.CreateKeyRequest, dict]):
                 The request object. The create key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
@@ -580,7 +594,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def list_keys(
         self,
-        request: recaptchaenterprise.ListKeysRequest = None,
+        request: Union[recaptchaenterprise.ListKeysRequest, dict] = None,
         *,
         retry: retries.Retry = gapic_v1.method.DEFAULT,
         timeout: float = None,
@@ -590,7 +604,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         project.
 
         Args:
-            request (google.cloud.recaptchaenterprise_v1.types.ListKeysRequest):
+            request (Union[google.cloud.recaptchaenterprise_v1.types.ListKeysRequest, dict]):
                 The request object. The list keys request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
@@ -639,7 +653,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def get_key(
         self,
-        request: recaptchaenterprise.GetKeyRequest = None,
+        request: Union[recaptchaenterprise.GetKeyRequest, dict] = None,
         *,
         retry: retries.Retry = gapic_v1.method.DEFAULT,
         timeout: float = None,
@@ -648,7 +662,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         r"""Returns the specified key.
 
         Args:
-            request (google.cloud.recaptchaenterprise_v1.types.GetKeyRequest):
+            request (Union[google.cloud.recaptchaenterprise_v1.types.GetKeyRequest, dict]):
                 The request object. The get key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
@@ -689,7 +703,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def update_key(
         self,
-        request: recaptchaenterprise.UpdateKeyRequest = None,
+        request: Union[recaptchaenterprise.UpdateKeyRequest, dict] = None,
         *,
         retry: retries.Retry = gapic_v1.method.DEFAULT,
         timeout: float = None,
@@ -698,7 +712,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         r"""Updates the specified key.
 
         Args:
-            request (google.cloud.recaptchaenterprise_v1.types.UpdateKeyRequest):
+            request (Union[google.cloud.recaptchaenterprise_v1.types.UpdateKeyRequest, dict]):
                 The request object. The update key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
@@ -739,7 +753,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def delete_key(
         self,
-        request: recaptchaenterprise.DeleteKeyRequest = None,
+        request: Union[recaptchaenterprise.DeleteKeyRequest, dict] = None,
         *,
         retry: retries.Retry = gapic_v1.method.DEFAULT,
         timeout: float = None,
@@ -748,7 +762,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         r"""Deletes the specified key.
 
         Args:
-            request (google.cloud.recaptchaenterprise_v1.types.DeleteKeyRequest):
+            request (Union[google.cloud.recaptchaenterprise_v1.types.DeleteKeyRequest, dict]):
                 The request object. The delete key request message.
             retry (google.api_core.retry.Retry): Designation of what errors, if any,
                 should be retried.
@@ -778,6 +792,132 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         rpc(
             request, retry=retry, timeout=timeout, metadata=metadata,
         )
+
+    def migrate_key(
+        self,
+        request: Union[recaptchaenterprise.MigrateKeyRequest, dict] = None,
+        *,
+        retry: retries.Retry = gapic_v1.method.DEFAULT,
+        timeout: float = None,
+        metadata: Sequence[Tuple[str, str]] = (),
+    ) -> recaptchaenterprise.Key:
+        r"""Migrates an existing key from reCAPTCHA to reCAPTCHA
+        Enterprise. Once a key is migrated, it can be used from
+        either product. SiteVerify requests are billed as
+        CreateAssessment calls. You must be authenticated as one
+        of the current owners of the reCAPTCHA Site Key, and
+        your user must have the reCAPTCHA Enterprise Admin IAM
+        role in the destination project.
+
+        Args:
+            request (Union[google.cloud.recaptchaenterprise_v1.types.MigrateKeyRequest, dict]):
+                The request object. The migrate key request message.
+            retry (google.api_core.retry.Retry): Designation of what errors, if any,
+                should be retried.
+            timeout (float): The timeout for this request.
+            metadata (Sequence[Tuple[str, str]]): Strings which should be
+                sent along with the request as metadata.
+
+        Returns:
+            google.cloud.recaptchaenterprise_v1.types.Key:
+                A key used to identify and configure
+                applications (web and/or mobile) that
+                use reCAPTCHA Enterprise.
+
+        """
+        # Create or coerce a protobuf request object.
+        # Minor optimization to avoid making a copy if the user passes
+        # in a recaptchaenterprise.MigrateKeyRequest.
+        # There's no risk of modifying the input as we've already verified
+        # there are no flattened fields.
+        if not isinstance(request, recaptchaenterprise.MigrateKeyRequest):
+            request = recaptchaenterprise.MigrateKeyRequest(request)
+
+        # Wrap the RPC method; this adds retry and timeout information,
+        # and friendly error handling.
+        rpc = self._transport._wrapped_methods[self._transport.migrate_key]
+
+        # Certain fields should be provided within the metadata header;
+        # add these here.
+        metadata = tuple(metadata) + (
+            gapic_v1.routing_header.to_grpc_metadata((("name", request.name),)),
+        )
+
+        # Send the request.
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
+
+        # Done; return the response.
+        return response
+
+    def get_metrics(
+        self,
+        request: Union[recaptchaenterprise.GetMetricsRequest, dict] = None,
+        *,
+        name: str = None,
+        retry: retries.Retry = gapic_v1.method.DEFAULT,
+        timeout: float = None,
+        metadata: Sequence[Tuple[str, str]] = (),
+    ) -> recaptchaenterprise.Metrics:
+        r"""Get some aggregated metrics for a Key. This data can
+        be used to build dashboards.
+
+        Args:
+            request (Union[google.cloud.recaptchaenterprise_v1.types.GetMetricsRequest, dict]):
+                The request object. The get metrics request message.
+            name (str):
+                Required. The name of the requested
+                metrics, in the format
+                "projects/{project}/keys/{key}/metrics".
+
+                This corresponds to the ``name`` field
+                on the ``request`` instance; if ``request`` is provided, this
+                should not be set.
+            retry (google.api_core.retry.Retry): Designation of what errors, if any,
+                should be retried.
+            timeout (float): The timeout for this request.
+            metadata (Sequence[Tuple[str, str]]): Strings which should be
+                sent along with the request as metadata.
+
+        Returns:
+            google.cloud.recaptchaenterprise_v1.types.Metrics:
+                Metrics for a single Key.
+        """
+        # Create or coerce a protobuf request object.
+        # Sanity check: If we got a request object, we should *not* have
+        # gotten any keyword arguments that map to the request.
+        has_flattened_params = any([name])
+        if request is not None and has_flattened_params:
+            raise ValueError(
+                "If the `request` argument is set, then none of "
+                "the individual field arguments should be set."
+            )
+
+        # Minor optimization to avoid making a copy if the user passes
+        # in a recaptchaenterprise.GetMetricsRequest.
+        # There's no risk of modifying the input as we've already verified
+        # there are no flattened fields.
+        if not isinstance(request, recaptchaenterprise.GetMetricsRequest):
+            request = recaptchaenterprise.GetMetricsRequest(request)
+            # If we have keyword arguments corresponding to fields on the
+            # request, apply these.
+            if name is not None:
+                request.name = name
+
+        # Wrap the RPC method; this adds retry and timeout information,
+        # and friendly error handling.
+        rpc = self._transport._wrapped_methods[self._transport.get_metrics]
+
+        # Certain fields should be provided within the metadata header;
+        # add these here.
+        metadata = tuple(metadata) + (
+            gapic_v1.routing_header.to_grpc_metadata((("name", request.name),)),
+        )
+
+        # Send the request.
+        response = rpc(request, retry=retry, timeout=timeout, metadata=metadata,)
+
+        # Done; return the response.
+        return response
 
 
 try:
