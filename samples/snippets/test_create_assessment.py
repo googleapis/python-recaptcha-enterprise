@@ -22,8 +22,6 @@ from flask import Flask, render_template, url_for
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.utils import ChromeType
 
 import create_assessment
 
@@ -52,7 +50,12 @@ def app() -> Flask:
 
 @pytest.fixture(scope="module")
 def browser() -> WebDriver:
-    browser = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--window-size=1420,1080')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    browser = webdriver.Chrome(chrome_options=chrome_options)
     yield browser
     browser.close()
 
