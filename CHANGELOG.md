@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.2.1](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.2.0...v1.2.1) (2021-10-13)
+
+
+### Documentation
+
+* **samples:** add reCAPTCHA Enterprise code samples  ([#112](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/112)) ([879acf1](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/879acf12d24b5148e372f0f76a243ea0fc66286e))
+
 ## [1.2.0](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.1.2...v1.2.0) (2021-10-08)
 
 
