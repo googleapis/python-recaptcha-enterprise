@@ -51,7 +51,7 @@ setuptools.setup(
         "proto-plus >= 1.10.0",
         "packaging >= 14.3",
     ),
-    extras_requires={},
+    extras_require={},
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
