@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.3.2](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.3.1...v1.3.2) (2021-11-03)
+
+
+### Documentation
+
+* **samples:** removed assessment name in create_assessment sample ([#147](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/147)) ([f11134d](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/f11134da5e9e9770b73dadd96c08ba69c99b968f))
+
 ### [1.3.1](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.3.0...v1.3.1) (2021-11-01)
 
 
