@@ -23,11 +23,11 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-
-# TODO(developer): Replace these variables before running the sample.
+from annotate_assessment import annotate_assessment
+from create_assessment import create_assessment
 from create_site_key import create_site_key
 from delete_site_key import delete_site_key
-from samples.snippets import annotate_assessment, create_assessment
+
 
 GOOGLE_CLOUD_PROJECT = os.environ["GOOGLE_CLOUD_PROJECT"]
 DOMAIN_NAME = "localhost"
@@ -93,7 +93,7 @@ def test_create_assessment(
 
 @pytest.mark.dependency(depends=['test_create_assessment'])
 def test_annotate_assessment(capsys: CaptureFixture) -> None:
-    annotate_assessment.annotate_assessment(project_id=GOOGLE_CLOUD_PROJECT, assessment_id=ASSESSMENT_NAME)
+    annotate_assessment(project_id=GOOGLE_CLOUD_PROJECT, assessment_id=ASSESSMENT_NAME)
     out, _ = capsys.readouterr()
     assert re.search("Annotated response sent successfully ! ", out)
 
@@ -116,7 +116,7 @@ def get_token(recaptcha_site_key: str, browser: WebDriver) -> typing.Tuple:
 
 
 def assess_token(recaptcha_site_key: str, token: str, action: str) -> None:
-    create_assessment.create_assessment(
+    create_assessment(
         project_id=GOOGLE_CLOUD_PROJECT,
         recaptcha_site_key=recaptcha_site_key,
         token=token,
