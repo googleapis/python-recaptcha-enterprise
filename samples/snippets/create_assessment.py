@@ -72,6 +72,7 @@ def create_assessment(
             "The reCAPTCHA score for this token is: "
             + str(response.risk_analysis.score)
         )
-
+        # Get the assessment name (id). Use this to annotate the assessment.
+        print("Assessment name: " + response.name.rsplit("/", maxsplit=1)[1].strip())
 
 # [END recaptcha_enterprise_create_assessment]

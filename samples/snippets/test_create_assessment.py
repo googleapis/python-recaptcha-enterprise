@@ -23,14 +23,15 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-import create_assessment
 
 # TODO(developer): Replace these variables before running the sample.
 from create_site_key import create_site_key
 from delete_site_key import delete_site_key
+from samples.snippets import annotate_assessment, create_assessment
 
 GOOGLE_CLOUD_PROJECT = os.environ["GOOGLE_CLOUD_PROJECT"]
 DOMAIN_NAME = "localhost"
+ASSESSMENT_NAME = ""
 
 
 @pytest.fixture(scope="session")
@@ -71,16 +72,30 @@ def recaptcha_site_key() -> str:
     )
 
 
+@pytest.mark.dependency()
 @pytest.mark.usefixtures("live_server")
 def test_create_assessment(
     capsys: CaptureFixture, recaptcha_site_key: str, browser: WebDriver
 ) -> None:
+    global ASSESSMENT_NAME
     token, action = get_token(recaptcha_site_key, browser)
     assess_token(recaptcha_site_key, token=token, action=action)
     out, _ = capsys.readouterr()
-    assert re.search("The reCAPTCHA score for this token is: ", out)
-    score = out.rsplit(":", maxsplit=1)[1].strip()
+    score = -1
+    for line in out.split("\n"):
+        if "The reCAPTCHA score for this token is" in line:
+            score = line.rsplit(":", maxsplit=1)[1].strip()
+        elif "Assessment name: " in line:
+            ASSESSMENT_NAME = line.rsplit(":", maxsplit=1)[1].strip()
+    assert score != -1 and ASSESSMENT_NAME != ""
     set_score(browser, score)
+
+
+@pytest.mark.dependency(depends=['test_create_assessment'])
+def test_annotate_assessment(capsys: CaptureFixture) -> None:
+    annotate_assessment.annotate_assessment(project_id=GOOGLE_CLOUD_PROJECT, assessment_id=ASSESSMENT_NAME)
+    out, _ = capsys.readouterr()
+    assert re.search("Annotated response sent successfully ! ", out)
 
 
 def get_token(recaptcha_site_key: str, browser: WebDriver) -> typing.Tuple:
