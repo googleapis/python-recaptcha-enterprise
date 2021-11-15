@@ -17,6 +17,7 @@
 from google.cloud import recaptchaenterprise_v1
 from google.cloud.recaptchaenterprise_v1 import Assessment
 
+
 def create_assessment(
     project_id: str, recaptcha_site_key: str, token: str, recaptcha_action: str
 ) -> Assessment:
