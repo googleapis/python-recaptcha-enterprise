@@ -88,7 +88,9 @@ def test_assessment(
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
     # Parse the assessment_response.name which is of the format:
     # {'project': 'my-project-id', 'assessment': 'assessment-id'}
-    assessment_name = client.parse_assessment_path(assessment_response.name).get('assessment')
+    assessment_name = client.parse_assessment_path(assessment_response.name).get(
+        "assessment"
+    )
     assert assessment_name != ""
     set_score(browser, score)
 

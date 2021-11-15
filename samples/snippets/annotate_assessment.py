@@ -26,7 +26,7 @@ def annotate_assessment(project_id: str, assessment_id: str) -> None:
 
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
-    assessment_name = f'projects/{project_id}/assessments/{assessment_id}'
+    assessment_name = f"projects/{project_id}/assessments/{assessment_id}"
     # Build the annotation request.
     # For more info on when/how to annotate, see:
     # https://cloud.google.com/recaptcha-enterprise/docs/annotate-assessment#when_to_annotate
@@ -37,7 +37,7 @@ def annotate_assessment(project_id: str, assessment_id: str) -> None:
 
     # Empty response is sent back.
     client.annotate_assessment(request)
-    print('Annotated response sent successfully ! ')
+    print("Annotated response sent successfully ! ")
 
 
 # [END recaptcha_enterprise_annotate_assessment]
