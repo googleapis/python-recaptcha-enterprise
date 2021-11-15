@@ -19,10 +19,10 @@ import typing
 
 from _pytest.capture import CaptureFixture
 from flask import Flask, render_template, url_for
-import pytest
-
 from google.cloud import recaptchaenterprise_v1
 from google.cloud.recaptchaenterprise_v1 import Assessment
+import pytest
+
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 
@@ -83,9 +83,8 @@ def test_assessment(
     # Get token.
     token, action = get_token(recaptcha_site_key, browser)
     # Create assessment.
-    out, _ = capsys.readouterr()
     assessment_response = assess_token(recaptcha_site_key, token=token, action=action)
-    score = assessment_response.risk_analysis.score
+    score = str(assessment_response.risk_analysis.score)
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
     # Parse the assessment_response.name which is of the format:
     # {'project': 'my-project-id', 'assessment': 'assessment-id'}
@@ -95,6 +94,7 @@ def test_assessment(
 
     # Annotate assessment.
     annotate_assessment(project_id=GOOGLE_CLOUD_PROJECT, assessment_id=assessment_name)
+    out, _ = capsys.readouterr()
     assert re.search("Annotated response sent successfully !", out)
 
 
