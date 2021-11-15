@@ -13,12 +13,14 @@
 # limitations under the License.
 
 # [START recaptcha_enterprise_create_assessment]
+from google.cloud.recaptchaenterprise_v1 import Assessment
+
 from google.cloud import recaptchaenterprise_v1
 
 
 def create_assessment(
     project_id: str, recaptcha_site_key: str, token: str, recaptcha_action: str
-) -> None:
+) -> Assessment:
     """ Create an assessment to analyze the risk of a UI action.
     Args:
         project_id: GCloud Project ID
@@ -73,6 +75,8 @@ def create_assessment(
             + str(response.risk_analysis.score)
         )
         # Get the assessment name (id). Use this to annotate the assessment.
-        print("Assessment name: " + response.name.rsplit("/", maxsplit=1)[1].strip())
+        assessment_name = client.parse_assessment_path(response.name).get('assessment')
+        print(f"Assessment name: {assessment_name}")
+    return response
 
 # [END recaptcha_enterprise_create_assessment]

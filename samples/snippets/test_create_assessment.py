@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import multiprocessing
 import os
 import re
 import time
@@ -20,6 +20,9 @@ import typing
 from _pytest.capture import CaptureFixture
 from flask import Flask, render_template, url_for
 import pytest
+
+from google.cloud import recaptchaenterprise_v1
+from google.cloud.recaptchaenterprise_v1 import Assessment
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
 
@@ -31,7 +34,8 @@ from delete_site_key import delete_site_key
 
 GOOGLE_CLOUD_PROJECT = os.environ["GOOGLE_CLOUD_PROJECT"]
 DOMAIN_NAME = "localhost"
-ASSESSMENT_NAME = ""
+# Switch the multi-processing style for Python > 3.7: https://github.com/pytest-dev/pytest-flask/issues/104
+multiprocessing.set_start_method("fork")
 
 
 @pytest.fixture(scope="session")
@@ -72,30 +76,26 @@ def recaptcha_site_key() -> str:
     )
 
 
-@pytest.mark.dependency()
 @pytest.mark.usefixtures("live_server")
-def test_create_assessment(
+def test_assessment(
     capsys: CaptureFixture, recaptcha_site_key: str, browser: WebDriver
 ) -> None:
-    global ASSESSMENT_NAME
+    # Get token.
     token, action = get_token(recaptcha_site_key, browser)
-    assess_token(recaptcha_site_key, token=token, action=action)
+    # Create assessment.
     out, _ = capsys.readouterr()
-    score = -1
-    for line in out.split("\n"):
-        if "The reCAPTCHA score for this token is" in line:
-            score = line.rsplit(":", maxsplit=1)[1].strip()
-        elif "Assessment name: " in line:
-            ASSESSMENT_NAME = line.rsplit(":", maxsplit=1)[1].strip()
-    assert score != -1 and ASSESSMENT_NAME != ""
+    assessment_response = assess_token(recaptcha_site_key, token=token, action=action)
+    score = assessment_response.risk_analysis.score
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
+    # Parse the assessment_response.name which is of the format:
+    # {'project': 'my-project-id', 'assessment': 'assessment-id'}
+    assessment_name = client.parse_assessment_path(assessment_response.name).get('assessment')
+    assert assessment_name != ""
     set_score(browser, score)
 
-
-@pytest.mark.dependency(depends=['test_create_assessment'])
-def test_annotate_assessment(capsys: CaptureFixture) -> None:
-    annotate_assessment(project_id=GOOGLE_CLOUD_PROJECT, assessment_id=ASSESSMENT_NAME)
-    out, _ = capsys.readouterr()
-    assert re.search("Annotated response sent successfully ! ", out)
+    # Annotate assessment.
+    annotate_assessment(project_id=GOOGLE_CLOUD_PROJECT, assessment_id=assessment_name)
+    assert re.search("Annotated response sent successfully !", out)
 
 
 def get_token(recaptcha_site_key: str, browser: WebDriver) -> typing.Tuple:
@@ -115,8 +115,8 @@ def get_token(recaptcha_site_key: str, browser: WebDriver) -> typing.Tuple:
     return token, action
 
 
-def assess_token(recaptcha_site_key: str, token: str, action: str) -> None:
-    create_assessment(
+def assess_token(recaptcha_site_key: str, token: str, action: str) -> Assessment:
+    return create_assessment(
         project_id=GOOGLE_CLOUD_PROJECT,
         recaptcha_site_key=recaptcha_site_key,
         token=token,
