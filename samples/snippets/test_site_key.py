@@ -19,9 +19,9 @@ import pytest
 
 from create_site_key import create_site_key
 from delete_site_key import delete_site_key
+from get_metrics import get_metrics
 from get_site_key import get_site_key
 from list_site_keys import list_site_keys
-from samples.snippets.get_metrics import get_metrics
 from update_site_key import update_site_key
 
 # TODO(developer): Replace these variables before running the sample.
