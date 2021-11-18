@@ -42,4 +42,5 @@ def migrate_site_key(project_id: str, recaptcha_site_key: str) -> None:
         if key.name == response.name:
             print(f"Key migrated successfully: {recaptcha_site_key}")
 
+
 # [END recaptcha_enterprise_migrate_site_key]

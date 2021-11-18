@@ -43,4 +43,5 @@ def get_metrics(project_id: str, recaptcha_site_key: str) -> None:
 
     print(f"Retrieved the bucket count for score based key: {recaptcha_site_key}")
 
+
 # [END recaptcha_enterprise_get_metrics_site_key]

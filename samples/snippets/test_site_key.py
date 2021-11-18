@@ -69,4 +69,6 @@ def test_update_site_key(capsys: CaptureFixture, recaptcha_site_key: str) -> Non
 def test_get_metrics(capsys: CaptureFixture, recaptcha_site_key: str) -> None:
     get_metrics(project_id=GOOGLE_CLOUD_PROJECT, recaptcha_site_key=recaptcha_site_key)
     out, _ = capsys.readouterr()
-    assert re.search(f"Retrieved the bucket count for score based key: {recaptcha_site_key}", out)
+    assert re.search(
+        f"Retrieved the bucket count for score based key: {recaptcha_site_key}", out
+    )
