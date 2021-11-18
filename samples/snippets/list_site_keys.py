@@ -13,10 +13,12 @@
 # limitations under the License.
 
 # [START recaptcha_enterprise_list_site_keys]
+from google.cloud.recaptchaenterprise_v1.services.recaptcha_enterprise_service.pagers import ListKeysPager
+
 from google.cloud import recaptchaenterprise_v1
 
 
-def list_site_keys(project_id: str) -> None:
+def list_site_keys(project_id: str) -> ListKeysPager:
     """ List all keys present under the given project ID.
 
     Args:
@@ -36,7 +38,7 @@ def list_site_keys(project_id: str) -> None:
     for i, key in enumerate(response):
         print(f"{str(i)}. {key.name}")
 
-
+    return response
 # [END recaptcha_enterprise_list_site_keys]
 
 
