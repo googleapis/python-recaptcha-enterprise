@@ -15,7 +15,9 @@
 # [START recaptcha_enterprise_list_site_keys]
 from google.cloud import recaptchaenterprise_v1
 
-from google.cloud.recaptchaenterprise_v1.services.recaptcha_enterprise_service.pagers import ListKeysPager
+from google.cloud.recaptchaenterprise_v1.services.recaptcha_enterprise_service.pagers import (
+    ListKeysPager,
+)
 
 
 def list_site_keys(project_id: str) -> ListKeysPager:
@@ -39,6 +41,8 @@ def list_site_keys(project_id: str) -> ListKeysPager:
         print(f"{str(i)}. {key.name}")
 
     return response
+
+
 # [END recaptcha_enterprise_list_site_keys]
 
 
