@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.4.2](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.4.1...v1.4.2) (2021-11-19)
+
+
+### Documentation
+
+* **samples:** added samples and test to migrate key and get metrics ([#161](https://www.github.com/googleapis/python-recaptcha-enterprise/issues/161)) ([4ab3ab8](https://www.github.com/googleapis/python-recaptcha-enterprise/commit/4ab3ab8979d58e9b490792cdb966147fa97f28b6))
+
 ### [1.4.1](https://www.github.com/googleapis/python-recaptcha-enterprise/compare/v1.4.0...v1.4.1) (2021-11-16)
 
 
