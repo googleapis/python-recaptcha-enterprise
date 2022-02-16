@@ -5,6 +5,9 @@ FROM python:3.10-slim
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
 ENV PORT 8080
+ENV GOOGLE_CLOUD_PROJECT $GOOGLE_CLOUD_PROJECT
+ENV SITE_KEY $SITE_KEY
+ENV CHECKBOX_SITE_KEY $CHECKBOX_SITE_KEY
 
 # Copy local code to the container image.
 ENV APP_HOME /app
