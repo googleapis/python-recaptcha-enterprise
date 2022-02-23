@@ -1,7 +1,7 @@
 {
     "name": "demosite-app",
     "build": {
-        "skip": true,
+        "skip": true
     },
     "hooks": {
         "prebuild": {
