@@ -1,12 +1,27 @@
 # Google Cloud reCAPTCHA Enterprise
 
+Google [Cloud reCAPTCHA Enterprise](https://cloud.google.com/recaptcha-enterprise) helps protect your website from fraudulent activity, spam, and abuse without creating friction.
+
+### One-click deploy approach
+
+1. Cloud shell opens the landing page of reCAPTCHA Enterprise console.
+
+2. Git clone this repository, switch to this branch, edit the init.sh to setup your credentials.
+
+3. The run init.sh file
 
 <a href="https://console.cloud.google.com/security/recaptcha?cloudshell=true">
 <img alt="Open Cloud Shell" src ="http://gstatic.com/cloudssh/images/open-btn.png"></a>
 
-Google [Cloud reCAPTCHA Enterprise](https://cloud.google.com/recaptcha-enterprise) helps protect your website from fraudulent activity, spam, and abuse without creating friction.
+or
 
-This application demonstrates the technical costs of integrating reCAPTCHA Enterprise using the Python Client Libraries.
+The below Cloud Run approach is strictly for testing purpose: 
+
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/googleapis/python-recaptcha-enterprise.git&revision=demosite-app&dir=samples/demosite_application)
+
+
+
+This application demonstrates the technical integration of reCAPTCHA Enterprise using the Python Client Libraries.
 
 ## Prerequisites
 
