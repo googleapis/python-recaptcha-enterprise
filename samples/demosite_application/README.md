@@ -1,8 +1,12 @@
 # Google Cloud reCAPTCHA Enterprise
 
 
-<a href="https://console.cloud.google.com/security/recaptcha?cloudshell=true">
-<img alt="Open Cloud Shell" src ="http://gstatic.com/cloudssh/images/open-btn.png"></a>
+<a href="https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/python-recaptcha-enterprise&page=editor&open_in_editor=samples/demosite_application/README.md">
+<img alt="Open in Cloud Shell" src ="http://gstatic.com/cloudssh/images/open-btn.png"></a>
+
+or 
+
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/googleapis/python-recaptcha-enterprise.git&revision=demosite-app&dir=samples/demosite_application)
 
 Google [Cloud reCAPTCHA Enterprise](https://cloud.google.com/recaptcha-enterprise) helps protect your website from fraudulent activity, spam, and abuse without creating friction.
 
