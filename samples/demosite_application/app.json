@@ -1,0 +1,13 @@
+{
+    "name": "demosite-app",
+    "build": {
+        "skip": true,
+    },
+    "hooks": {
+        "prebuild": {
+            "commands": [
+                "./init.sh"
+            ]
+        }
+    }
+}
