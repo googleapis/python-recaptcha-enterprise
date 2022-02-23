@@ -13,5 +13,5 @@ gcloud alpha recaptcha keys create --display-name=demo-recaptcha-checkbox-key --
 export CHECKBOX_SITE_KEY=$(cat recaptchacheckboxkeyfile | sed -n -e 's/.*Created \[\([0-9a-zA-Z_-]\+\)\].*/\1/p')
 
 # build and run the local dockerfile in the port 8080.
-docker build --build-arg GOOGLE_CLOUD_PROJECT=GOOGLE_CLOUD_PROJECT --build-arg SITE_KEY=SITE_KEY --build-arg CHECKBOX_SITE_KEY=CHECKBOX_SITE_KEY -t test .
+docker build --build-arg GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} --build-arg SITE_KEY=${SITE_KEY} --build-arg CHECKBOX_SITE_KEY=${CHECKBOX_SITE_KEY} -t test .
 docker run -d -p 8080:8080 test:latest
