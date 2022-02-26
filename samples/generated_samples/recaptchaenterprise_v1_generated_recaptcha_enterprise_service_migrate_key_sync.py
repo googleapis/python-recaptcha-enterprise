@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_MigrateKey_sync]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_MigrateKey_sync]
 from google.cloud import recaptchaenterprise_v1
 
 
@@ -42,4 +42,4 @@ def sample_migrate_key():
     # Handle the response
     print(response)
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_MigrateKey_sync]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_MigrateKey_sync]

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 # Generated code. DO NOT EDIT!
 #
-# Snippet for CreateAssessment
+# Snippet for UpdateKey
 # NOTE: This snippet has been automatically generated for illustrative purposes only.
 # It may require modifications to work in your environment.
 
@@ -23,23 +23,26 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_CreateAssessment_async]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_UpdateKey_async]
 from google.cloud import recaptchaenterprise_v1
 
 
-async def sample_create_assessment():
+async def sample_update_key():
     # Create a client
     client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceAsyncClient()
 
     # Initialize request argument(s)
-    request = recaptchaenterprise_v1.CreateAssessmentRequest(
-        parent="parent_value",
+    key = recaptchaenterprise_v1.Key()
+    key.web_settings.integration_type = "INVISIBLE"
+
+    request = recaptchaenterprise_v1.UpdateKeyRequest(
+        key=key,
     )
 
     # Make the request
-    response = await client.create_assessment(request=request)
+    response = await client.update_key(request=request)
 
     # Handle the response
     print(response)
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_CreateAssessment_async]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_UpdateKey_async]

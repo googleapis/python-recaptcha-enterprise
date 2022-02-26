@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 # Generated code. DO NOT EDIT!
 #
-# Snippet for CreateKey
+# Snippet for GetMetrics
 # NOTE: This snippet has been automatically generated for illustrative purposes only.
 # It may require modifications to work in your environment.
 
@@ -23,27 +23,23 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_CreateKey_sync]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_GetMetrics_async]
 from google.cloud import recaptchaenterprise_v1
 
 
-def sample_create_key():
+async def sample_get_metrics():
     # Create a client
-    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceAsyncClient()
 
     # Initialize request argument(s)
-    key = recaptchaenterprise_v1.Key()
-    key.web_settings.integration_type = "INVISIBLE"
-
-    request = recaptchaenterprise_v1.CreateKeyRequest(
-        parent="parent_value",
-        key=key,
+    request = recaptchaenterprise_v1.GetMetricsRequest(
+        name="name_value",
     )
 
     # Make the request
-    response = client.create_key(request=request)
+    response = await client.get_metrics(request=request)
 
     # Handle the response
     print(response)
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_CreateKey_sync]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_GetMetrics_async]

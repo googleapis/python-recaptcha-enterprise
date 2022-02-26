@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_ListRelatedAccountGroups_async]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_ListRelatedAccountGroups_sync]
 from google.cloud import recaptchaenterprise_v1
 
 
-async def sample_list_related_account_groups():
+def sample_list_related_account_groups():
     # Create a client
-    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceAsyncClient()
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
     # Initialize request argument(s)
     request = recaptchaenterprise_v1.ListRelatedAccountGroupsRequest(
@@ -40,7 +40,7 @@ async def sample_list_related_account_groups():
     page_result = client.list_related_account_groups(request=request)
 
     # Handle the response
-    async for response in page_result:
+    for response in page_result:
         print(response)
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_ListRelatedAccountGroups_async]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_ListRelatedAccountGroups_sync]

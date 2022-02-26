@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 # Generated code. DO NOT EDIT!
 #
-# Snippet for ListRelatedAccountGroupMemberships
+# Snippet for CreateKey
 # NOTE: This snippet has been automatically generated for illustrative purposes only.
 # It may require modifications to work in your environment.
 
@@ -23,24 +23,27 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_ListRelatedAccountGroupMemberships_async]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_CreateKey_sync]
 from google.cloud import recaptchaenterprise_v1
 
 
-async def sample_list_related_account_group_memberships():
+def sample_create_key():
     # Create a client
-    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceAsyncClient()
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
     # Initialize request argument(s)
-    request = recaptchaenterprise_v1.ListRelatedAccountGroupMembershipsRequest(
+    key = recaptchaenterprise_v1.Key()
+    key.web_settings.integration_type = "INVISIBLE"
+
+    request = recaptchaenterprise_v1.CreateKeyRequest(
         parent="parent_value",
+        key=key,
     )
 
     # Make the request
-    page_result = client.list_related_account_group_memberships(request=request)
+    response = client.create_key(request=request)
 
     # Handle the response
-    async for response in page_result:
-        print(response)
+    print(response)
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_ListRelatedAccountGroupMemberships_async]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_CreateKey_sync]

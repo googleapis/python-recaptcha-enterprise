@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_GetKey_sync]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_GetKey_async]
 from google.cloud import recaptchaenterprise_v1
 
 
-def sample_get_key():
+async def sample_get_key():
     # Create a client
-    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceAsyncClient()
 
     # Initialize request argument(s)
     request = recaptchaenterprise_v1.GetKeyRequest(
@@ -37,9 +37,9 @@ def sample_get_key():
     )
 
     # Make the request
-    response = client.get_key(request=request)
+    response = await client.get_key(request=request)
 
     # Handle the response
     print(response)
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_GetKey_sync]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_GetKey_async]

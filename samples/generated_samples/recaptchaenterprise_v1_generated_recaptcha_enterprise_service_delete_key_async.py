@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_DeleteKey_sync]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_DeleteKey_async]
 from google.cloud import recaptchaenterprise_v1
 
 
-def sample_delete_key():
+async def sample_delete_key():
     # Create a client
-    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceAsyncClient()
 
     # Initialize request argument(s)
     request = recaptchaenterprise_v1.DeleteKeyRequest(
@@ -37,7 +37,7 @@ def sample_delete_key():
     )
 
     # Make the request
-    client.delete_key(request=request)
+    await client.delete_key(request=request)
 
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_DeleteKey_sync]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_DeleteKey_async]

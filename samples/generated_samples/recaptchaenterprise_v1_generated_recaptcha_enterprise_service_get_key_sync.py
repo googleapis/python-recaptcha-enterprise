@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 #
 # Generated code. DO NOT EDIT!
 #
-# Snippet for MigrateKey
+# Snippet for GetKey
 # NOTE: This snippet has been automatically generated for illustrative purposes only.
 # It may require modifications to work in your environment.
 
@@ -23,23 +23,23 @@
 #   python3 -m pip install google-cloud-recaptcha-enterprise
 
 
-# [START recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_MigrateKey_async]
+# [START recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_GetKey_sync]
 from google.cloud import recaptchaenterprise_v1
 
 
-async def sample_migrate_key():
+def sample_get_key():
     # Create a client
-    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceAsyncClient()
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
     # Initialize request argument(s)
-    request = recaptchaenterprise_v1.MigrateKeyRequest(
+    request = recaptchaenterprise_v1.GetKeyRequest(
         name="name_value",
     )
 
     # Make the request
-    response = await client.migrate_key(request=request)
+    response = client.get_key(request=request)
 
     # Handle the response
     print(response)
 
-# [END recaptchaenterprise_generated_recaptchaenterprise_v1_RecaptchaEnterpriseService_MigrateKey_async]
+# [END recaptchaenterprise_v1_generated_RecaptchaEnterpriseService_GetKey_sync]
