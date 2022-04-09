@@ -16,7 +16,7 @@
 from collections import OrderedDict
 import os
 import re
-from typing import Dict, Optional, Sequence, Tuple, Type, Union
+from typing import Dict, Mapping, Optional, Sequence, Tuple, Type, Union
 import pkg_resources
 
 from google.api_core import client_options as client_options_lib
@@ -518,7 +518,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_create_assessment():
                 # Create a client
@@ -623,7 +623,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_annotate_assessment():
                 # Create a client
@@ -730,7 +730,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_create_key():
                 # Create a client
@@ -810,7 +810,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_list_keys():
                 # Create a client
@@ -896,7 +896,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_get_key():
                 # Create a client
@@ -970,7 +970,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_update_key():
                 # Create a client
@@ -1047,7 +1047,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_delete_key():
                 # Create a client
@@ -1115,7 +1115,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_migrate_key():
                 # Create a client
@@ -1192,7 +1192,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_get_metrics():
                 # Create a client
@@ -1287,7 +1287,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_list_related_account_groups():
                 # Create a client
@@ -1399,7 +1399,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_list_related_account_group_memberships():
                 # Create a client
@@ -1517,7 +1517,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
         .. code-block:: python
 
-            from google.cloud import recaptchaenterprise_v1
+                    from google.cloud import recaptchaenterprise_v1
 
             def sample_search_related_account_group_memberships():
                 # Create a client
