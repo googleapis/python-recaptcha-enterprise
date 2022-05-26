@@ -74,7 +74,7 @@ cloudshell_open --repo_url "https://github.com/googleapis/python-recaptcha-enter
 export CLOUDSDK_PYTHON=python2
 ```
 
-##Authentication
+## Authentication
 
 The above _**one-click**_ and _**manual**_ deployment works with the default **compute-engine** service account in the project. 
 If you want to create a new service account, follow the below steps.
