@@ -18,7 +18,7 @@ ENV CHECKBOX_SITE_KEY=${CHECKBOX_SITE_KEY}
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-COPY .. ./
+COPY . ./
 
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
