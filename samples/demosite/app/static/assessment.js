@@ -17,7 +17,6 @@ function httpRequest(token, action, sitekey) {
               json_data = JSON.parse(request.response);
                   console.log(json_data);
                   if (json_data["success"] === "true") {
-                    addMessage(json_data["data"]["score"]);
                     document.getElementById("scoreButton").innerText = json_data["data"]["score"];
                     // document.getElementById("recaptcha_form").submit();
                   }
