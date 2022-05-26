@@ -55,13 +55,13 @@ The following instructions will help you prepare your development environment.
 1. Clone the python-recaptcha-enterprise repository and navigate to ```samples/demosite``` directory.
 
 ```
-cloudshell_open --repo_url "https://github.com/googleapis/python-recaptcha-enterprise.git" --dir "samples/demosite" --page "shell" --force_new_clone
+cloudshell_open --repo_url "https://github.com/googleapis/python-recaptcha-enterprise.git" --dir "samples/demosite" --page "shell" --force_new_clone --git_branch "demosite-app"
 ```
 
 2. Run docker-compose
 
 ```
-/usr/local/bin/docker-compose -f $PWD/samples/demosite/docker-compose.yaml up --build
+/usr/local/bin/docker-compose -f $PWD/docker-compose.yaml up --build
 ```
 
 3. Click on the localhost link in the terminal output. You'll find the deployed application.
