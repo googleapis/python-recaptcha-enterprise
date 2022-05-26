@@ -20,7 +20,7 @@ Billing information is **not needed** to deploy this application.
 
 2. Run
 ```
-cd cloudshell_open/python-recaptcha-enterprise/samples/demosite && . init.sh
+cd samples/demosite/app && export GCLOUDSDK_PYTHON=python2 && . init.sh
 ```
 
 3. Click on the localhost link in the terminal output. You'll find the deployed application.
@@ -61,7 +61,7 @@ cloudshell_open --repo_url "https://github.com/googleapis/python-recaptcha-enter
 2. Run docker-compose
 
 ```
-/usr/local/bin/docker-compose -f $HOME/cloudshell_open/python-recaptcha-enterprise/samples/demosite/docker-compose.yaml up --build
+/usr/local/bin/docker-compose -f $PWD/samples/demosite/docker-compose.yaml up --build
 ```
 
 3. Click on the localhost link in the terminal output. You'll find the deployed application.

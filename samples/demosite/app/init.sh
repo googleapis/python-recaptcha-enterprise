@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# Enabling the reCAPTCHA Enterprise API
-gcloud services enable recaptchaenterprise.googleapis.com
-
 # gcloud command to get the current GOOGLE Project id.
 export GOOGLE_CLOUD_PROJECT=$(gcloud config list --format 'value(core.project)' 2>/dev/null)
+gcloud config set project "$GOOGLE_CLOUD_PROJECT"
+
+# Enabling the reCAPTCHA Enterprise API
+gcloud services enable recaptchaenterprise.googleapis.com
 
 # gcloud command to create reCAPTCHA keys.
 gcloud alpha recaptcha keys create --display-name=demo-recaptcha-score-key --web --allow-all-domains --integration-type=SCORE 1>/dev/null 2>recaptchascorekeyfile
