@@ -4171,7 +4171,6 @@ def test_recaptcha_enterprise_service_transport_auth_adc(transport_class):
     [
         transports.RecaptchaEnterpriseServiceGrpcTransport,
         transports.RecaptchaEnterpriseServiceGrpcAsyncIOTransport,
-        transports.RecaptchaEnterpriseServiceRestTransport,
     ],
 )
 def test_recaptcha_enterprise_service_transport_auth_gdch_credentials(transport_class):
