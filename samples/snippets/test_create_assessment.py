@@ -102,9 +102,9 @@ def get_token(recaptcha_site_key: str, browser: WebDriver) -> typing.Tuple:
     browser.get(url_for("assess", site_key=recaptcha_site_key, _external=True))
     time.sleep(5)
 
-    browser.find_element_by_id("username").send_keys("username")
-    browser.find_element_by_id("password").send_keys("password")
-    browser.find_element_by_id("recaptchabutton").click()
+    browser.find_element("id", "username").send_keys("username")
+    browser.find_element("id", "password").send_keys("password")
+    browser.find_element("id", "recaptchabutton").click()
 
     # Timeout of 5 seconds
     time.sleep(5)
