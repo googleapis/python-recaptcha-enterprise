@@ -16,7 +16,18 @@
 from collections import OrderedDict
 import os
 import re
-from typing import Dict, Mapping, Optional, Sequence, Tuple, Type, Union, cast
+from typing import (
+    Dict,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    Optional,
+    Sequence,
+    Tuple,
+    Type,
+    Union,
+    cast,
+)
 
 from google.api_core import client_options as client_options_lib
 from google.api_core import exceptions as core_exceptions
@@ -62,7 +73,7 @@ class RecaptchaEnterpriseServiceClientMeta(type):
 
     def get_transport_class(
         cls,
-        label: str = None,
+        label: Optional[str] = None,
     ) -> Type[RecaptchaEnterpriseServiceTransport]:
         """Returns an appropriate transport class.
 
@@ -410,7 +421,7 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
         self,
         *,
         credentials: Optional[ga_credentials.Credentials] = None,
-        transport: Union[str, RecaptchaEnterpriseServiceTransport, None] = None,
+        transport: Optional[Union[str, RecaptchaEnterpriseServiceTransport]] = None,
         client_options: Optional[Union[client_options_lib.ClientOptions, dict]] = None,
         client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
     ) -> None:
@@ -508,12 +519,14 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def create_assessment(
         self,
-        request: Union[recaptchaenterprise.CreateAssessmentRequest, dict] = None,
+        request: Optional[
+            Union[recaptchaenterprise.CreateAssessmentRequest, dict]
+        ] = None,
         *,
-        parent: str = None,
-        assessment: recaptchaenterprise.Assessment = None,
+        parent: Optional[str] = None,
+        assessment: Optional[recaptchaenterprise.Assessment] = None,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.Assessment:
         r"""Creates an Assessment of the likelihood an event is
@@ -618,12 +631,16 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def annotate_assessment(
         self,
-        request: Union[recaptchaenterprise.AnnotateAssessmentRequest, dict] = None,
+        request: Optional[
+            Union[recaptchaenterprise.AnnotateAssessmentRequest, dict]
+        ] = None,
         *,
-        name: str = None,
-        annotation: recaptchaenterprise.AnnotateAssessmentRequest.Annotation = None,
+        name: Optional[str] = None,
+        annotation: Optional[
+            recaptchaenterprise.AnnotateAssessmentRequest.Annotation
+        ] = None,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.AnnotateAssessmentResponse:
         r"""Annotates a previously created Assessment to provide
@@ -736,10 +753,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def create_key(
         self,
-        request: Union[recaptchaenterprise.CreateKeyRequest, dict] = None,
+        request: Optional[Union[recaptchaenterprise.CreateKeyRequest, dict]] = None,
         *,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.Key:
         r"""Creates a new reCAPTCHA Enterprise key.
@@ -821,10 +838,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def list_keys(
         self,
-        request: Union[recaptchaenterprise.ListKeysRequest, dict] = None,
+        request: Optional[Union[recaptchaenterprise.ListKeysRequest, dict]] = None,
         *,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> pagers.ListKeysPager:
         r"""Returns the list of all keys that belong to a
@@ -915,11 +932,13 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def retrieve_legacy_secret_key(
         self,
-        request: Union[recaptchaenterprise.RetrieveLegacySecretKeyRequest, dict] = None,
+        request: Optional[
+            Union[recaptchaenterprise.RetrieveLegacySecretKeyRequest, dict]
+        ] = None,
         *,
-        key: str = None,
+        key: Optional[str] = None,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.RetrieveLegacySecretKeyResponse:
         r"""Returns the secret key related to the specified
@@ -1023,10 +1042,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def get_key(
         self,
-        request: Union[recaptchaenterprise.GetKeyRequest, dict] = None,
+        request: Optional[Union[recaptchaenterprise.GetKeyRequest, dict]] = None,
         *,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.Key:
         r"""Returns the specified key.
@@ -1104,10 +1123,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def update_key(
         self,
-        request: Union[recaptchaenterprise.UpdateKeyRequest, dict] = None,
+        request: Optional[Union[recaptchaenterprise.UpdateKeyRequest, dict]] = None,
         *,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.Key:
         r"""Updates the specified key.
@@ -1188,10 +1207,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def delete_key(
         self,
-        request: Union[recaptchaenterprise.DeleteKeyRequest, dict] = None,
+        request: Optional[Union[recaptchaenterprise.DeleteKeyRequest, dict]] = None,
         *,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> None:
         r"""Deletes the specified key.
@@ -1256,10 +1275,10 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def migrate_key(
         self,
-        request: Union[recaptchaenterprise.MigrateKeyRequest, dict] = None,
+        request: Optional[Union[recaptchaenterprise.MigrateKeyRequest, dict]] = None,
         *,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.Key:
         r"""Migrates an existing key from reCAPTCHA to reCAPTCHA
@@ -1343,11 +1362,11 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def get_metrics(
         self,
-        request: Union[recaptchaenterprise.GetMetricsRequest, dict] = None,
+        request: Optional[Union[recaptchaenterprise.GetMetricsRequest, dict]] = None,
         *,
-        name: str = None,
+        name: Optional[str] = None,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> recaptchaenterprise.Metrics:
         r"""Get some aggregated metrics for a Key. This data can
@@ -1444,13 +1463,13 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def list_related_account_groups(
         self,
-        request: Union[
-            recaptchaenterprise.ListRelatedAccountGroupsRequest, dict
+        request: Optional[
+            Union[recaptchaenterprise.ListRelatedAccountGroupsRequest, dict]
         ] = None,
         *,
-        parent: str = None,
+        parent: Optional[str] = None,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> pagers.ListRelatedAccountGroupsPager:
         r"""List groups of related accounts.
@@ -1563,13 +1582,13 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def list_related_account_group_memberships(
         self,
-        request: Union[
-            recaptchaenterprise.ListRelatedAccountGroupMembershipsRequest, dict
+        request: Optional[
+            Union[recaptchaenterprise.ListRelatedAccountGroupMembershipsRequest, dict]
         ] = None,
         *,
-        parent: str = None,
+        parent: Optional[str] = None,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> pagers.ListRelatedAccountGroupMembershipsPager:
         r"""Get memberships in a group of related accounts.
@@ -1687,14 +1706,14 @@ class RecaptchaEnterpriseServiceClient(metaclass=RecaptchaEnterpriseServiceClien
 
     def search_related_account_group_memberships(
         self,
-        request: Union[
-            recaptchaenterprise.SearchRelatedAccountGroupMembershipsRequest, dict
+        request: Optional[
+            Union[recaptchaenterprise.SearchRelatedAccountGroupMembershipsRequest, dict]
         ] = None,
         *,
-        project: str = None,
-        hashed_account_id: bytes = None,
+        project: Optional[str] = None,
+        hashed_account_id: Optional[bytes] = None,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> pagers.SearchRelatedAccountGroupMembershipsPager:
         r"""Search group memberships related to a given account.
